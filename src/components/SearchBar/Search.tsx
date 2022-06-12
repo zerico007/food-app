@@ -1,9 +1,14 @@
 import { ChangeEvent, useCallback, useState } from "react";
 import styled from "styled-components";
+import { Search as SearchIcon } from "@mui/icons-material";
+
+import { Button } from "..";
+import { useApi, useRecipes } from "../../context";
 
 const StyledSearch = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
   align-items: center;
   background-color: transparent;
   color: var(--main-white);
@@ -17,7 +22,7 @@ const StyledSearch = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: 100%;
+  width: 90%;
   height: 100%;
   border: none;
   outline: none;
@@ -30,6 +35,8 @@ const SearchInput = styled.input`
 
 export default function Search() {
   const [search, setSearch] = useState("");
+  const { getByQuery } = useApi();
+  const { setRecipes } = useRecipes();
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +45,11 @@ export default function Search() {
     [setSearch]
   );
 
+  const handleSearch = useCallback(async () => {
+    const fetchedRecipes = await getByQuery(search);
+    setRecipes(fetchedRecipes);
+  }, [search, getByQuery]);
+
   return (
     <StyledSearch>
       <SearchInput
@@ -45,6 +57,12 @@ export default function Search() {
         placeholder="Search for a recipe ..."
         value={search}
         onChange={handleChange}
+      />
+      <Button
+        onClick={handleSearch}
+        theme="nav"
+        width="fit-content"
+        content={<SearchIcon />}
       />
     </StyledSearch>
   );
