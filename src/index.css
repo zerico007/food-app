@@ -1,8 +1,11 @@
 :root {
   --main-blue: #364c96;
+  --main-blue-hovered: #2f3f7d;
   --main-pink: #ff8496;
+  --main-pink-hovered: #ef7272;
   --main-yellow: #ffc9a5;
   --main-white: #eaebed;
+  --main-white-hovered: #efe2e2;
 }
 
 body {

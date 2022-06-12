@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Search } from "..";
+import { Search, Button } from "..";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -23,6 +23,7 @@ const StyledNav = styled.nav`
 export default function NavBar() {
   return (
     <StyledNav>
+      <Button theme="nav" content="home" />
       <Search />
     </StyledNav>
   );

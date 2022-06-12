@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavBar } from "./components";
+import { NavBar, Button } from "./components";
 
 const AppContainer = styled.div`
   display: flex;
@@ -16,7 +16,18 @@ function App() {
   return (
     <AppContainer className="App">
       <NavBar />
-      Hello, food app.
+      <div
+        className="buttons"
+        style={{
+          display: "flex",
+          width: "40rem",
+          justifyContent: "space-evenly",
+        }}
+      >
+        <Button theme="primary" content="Primary button" />
+        <Button theme="secondary" content="Secondary button" />
+        <Button theme="tertiary" content="Tertiary button" />
+      </div>
     </AppContainer>
   );
 }
