@@ -61,8 +61,8 @@ const StyledButton = styled.button<Omit<ButtonProps, "content">>`
   margin: ${(props) => props.margin};
   padding: 0.25rem;
   box-sizing: border-box;
-  font-size: 0.9rem;
-  font-weight: normal;
+  font-size: 0.8rem;
+  font-weight: 500;
   text-transform: uppercase;
   border-radius: 0.2rem;
   transition: all 0.3s ease-in-out;
