@@ -4,7 +4,7 @@ import { useSessionState } from "../../utils";
 
 interface IApiContext {
   responseInfo: ResponseInfo;
-  getByQuery: (query: string) => Promise<IRecipe[]>;
+  getByQuery: (query: string, offSet?: string) => Promise<IRecipe[]>;
 }
 
 const ApiContext = createContext<IApiContext>({
@@ -31,10 +31,10 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     }
   );
   const getByQuery = useCallback(
-    async (query: string, page?: string) => {
+    async (query: string, offSet?: string) => {
       try {
         const response = (await foodApi.get(
-          `?query=${query}&offset=${page ?? "0"}&apiKey=${API_KEY}`
+          `?query=${query}&offset=${offSet ?? "0"}&apiKey=${API_KEY}`
         )) as AxiosResponse<ApiResponse>;
         const { offset, number, totalResults } = response.data;
         setResponseInfo({ offset, number, totalResults });

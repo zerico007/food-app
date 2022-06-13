@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { RecipeBox } from "..";
+import { RecipeBox, Paginate } from "..";
 import { useRecipes, useApi, useSearch } from "../../context";
 
 const Wrapper = styled.div`
@@ -34,7 +34,7 @@ export default function Recipes() {
   const { recipes } = useRecipes();
   const { responseInfo } = useApi();
   const { query } = useSearch();
-  const { totalResults, number, offset } = responseInfo;
+  const { totalResults, number } = responseInfo;
 
   return (
     <Wrapper>
@@ -43,7 +43,7 @@ export default function Recipes() {
           <p>
             {`Showing ${number} recipes of ${totalResults} for "${query}".`}
           </p>
-          <p>{`Page ${offset + 1} of ${Math.ceil(totalResults / number)}.`}</p>
+          <Paginate />
         </Heading>
       ) : (
         <Heading>No recipes found</Heading>
