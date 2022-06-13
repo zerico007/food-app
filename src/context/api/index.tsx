@@ -4,11 +4,13 @@ import { useSessionState } from "../../utils";
 
 interface IApiContext {
   responseInfo: ResponseInfo;
+  setResponseInfo: (responseInfo: ResponseInfo) => void;
   getByQuery: (query: string, offSet?: string) => Promise<IRecipe[]>;
 }
 
 const ApiContext = createContext<IApiContext>({
   responseInfo: {} as ResponseInfo,
+  setResponseInfo: () => {},
   getByQuery: () => {
     return Promise.resolve([]);
   },
@@ -50,9 +52,10 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
   const providerValue = useMemo(
     (): IApiContext => ({
       responseInfo,
+      setResponseInfo,
       getByQuery,
     }),
-    [getByQuery, responseInfo]
+    [getByQuery, responseInfo, setResponseInfo]
   );
 
   return (

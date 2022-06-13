@@ -1,12 +1,13 @@
+import { useCallback } from "react";
 import styled from "styled-components";
-import { RecipeBox, Paginate } from "..";
+import { RecipeBox, Paginate, Button } from "..";
 import { useRecipes, useApi, useSearch } from "../../context";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   margin-top: 4rem;
 `;
@@ -31,22 +32,43 @@ const Heading = styled.div`
 `;
 
 export default function Recipes() {
-  const { recipes } = useRecipes();
-  const { responseInfo } = useApi();
-  const { query } = useSearch();
+  const { recipes, setRecipes } = useRecipes();
+  const { responseInfo, setResponseInfo } = useApi();
+  const { query, setQuery } = useSearch();
   const { totalResults, number } = responseInfo;
+
+  const clearSearch = useCallback(() => {
+    setQuery("");
+    setResponseInfo({
+      totalResults: 0,
+      number: 0,
+      offset: 0,
+    });
+    setRecipes([]);
+  }, [setQuery, setResponseInfo, setRecipes]);
 
   return (
     <Wrapper>
       {!!recipes.length ? (
         <Heading>
           <p>
-            {`Showing ${number} recipes of ${totalResults} for "${query}".`}
+            {`Showing ${number} results of ${totalResults} for "${query}".`}
           </p>
           <Paginate />
+          <Button
+            onClick={clearSearch}
+            content="clear search"
+            theme="secondary"
+          />
+        </Heading>
+      ) : query ? (
+        <Heading>
+          <p>{`No results for "${query}".`}</p>
         </Heading>
       ) : (
-        <Heading>No recipes found</Heading>
+        <Heading>
+          <h3 style={{ fontWeight: 500 }}>Search for your favorite recipe!</h3>
+        </Heading>
       )}
       <RecipesContainer>
         {recipes?.map((recipe) => (

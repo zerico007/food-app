@@ -5,7 +5,6 @@ const AppContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: 100vh;
   background-color: var(--main-white);
   width: 100vw;

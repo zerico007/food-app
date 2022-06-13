@@ -3,7 +3,7 @@ import { Search } from "..";
 
 const StyledNav = styled.nav`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   padding: 0.25rem 0.5rem;
   background-color: var(--main-blue);
@@ -18,11 +18,20 @@ const StyledNav = styled.nav`
   top: 0;
   left: 0;
   box-sizing: border-box;
+
+  div {
+    margin: 0 auto;
+  }
+`;
+
+const Logo = styled.h2`
+  color: var(--main-white);
 `;
 
 export default function NavBar() {
   return (
     <StyledNav>
+      <Logo>Foodie!</Logo>
       <Search />
     </StyledNav>
   );

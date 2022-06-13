@@ -44,7 +44,7 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
   return (
     <Container>
       <ImageContainer>
-        <img src={image} alt={title} />
+        <img src={image} alt={title} loading="lazy" />
       </ImageContainer>
       <TitleContainer>
         <h5>{title}</h5>
