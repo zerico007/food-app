@@ -31,10 +31,10 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     }
   );
   const getByQuery = useCallback(
-    async (query: string) => {
+    async (query: string, page?: string) => {
       try {
         const response = (await foodApi.get(
-          `?query=${query}&apiKey=${API_KEY}`
+          `?query=${query}&offset=${page ?? "0"}&apiKey=${API_KEY}`
         )) as AxiosResponse<ApiResponse>;
         const { offset, number, totalResults } = response.data;
         setResponseInfo({ offset, number, totalResults });
