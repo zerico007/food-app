@@ -15,7 +15,7 @@ const RecipesContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 50%;
+  width: 80%;
   height: auto;
   flex-wrap: wrap;
   gap: 1rem;

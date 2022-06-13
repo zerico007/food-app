@@ -1,15 +1,23 @@
 import axios, { AxiosResponse } from "axios";
-import { createContext, useCallback, useContext, useMemo } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from "react";
 import { useSessionState } from "../../utils";
 
 interface IApiContext {
   responseInfo: ResponseInfo;
+  isLoading: boolean;
   setResponseInfo: (responseInfo: ResponseInfo) => void;
   getByQuery: (query: string, offSet?: string) => Promise<IRecipe[]>;
 }
 
 const ApiContext = createContext<IApiContext>({
   responseInfo: {} as ResponseInfo,
+  isLoading: false,
   setResponseInfo: () => {},
   getByQuery: () => {
     return Promise.resolve([]);
@@ -24,6 +32,7 @@ const foodApi = axios.create({
 });
 
 export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [responseInfo, setResponseInfo] = useSessionState<ResponseInfo>(
     "responseInfo",
     {
@@ -34,6 +43,7 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
   );
   const getByQuery = useCallback(
     async (query: string, offSet?: string) => {
+      setIsLoading(true);
       try {
         const response = (await foodApi.get(
           `?query=${query}&offset=${offSet ?? "0"}&apiKey=${API_KEY}`
@@ -44,6 +54,8 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
       } catch (error) {
         console.log(error);
         return [] as IRecipe[];
+      } finally {
+        setIsLoading(false);
       }
     },
     [setResponseInfo]
@@ -52,10 +64,11 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
   const providerValue = useMemo(
     (): IApiContext => ({
       responseInfo,
+      isLoading,
       setResponseInfo,
       getByQuery,
     }),
-    [getByQuery, responseInfo, setResponseInfo]
+    [getByQuery, isLoading, responseInfo, setResponseInfo]
   );
 
   return (

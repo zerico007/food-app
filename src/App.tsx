@@ -1,5 +1,8 @@
 import styled from "styled-components";
-import { NavBar, RecipesContainer } from "./components";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+
+import { NavBar, RecipesContainer, Loader } from "./components";
+import { useApi } from "./context";
 
 const AppContainer = styled.div`
   display: flex;
@@ -12,10 +15,11 @@ const AppContainer = styled.div`
 `;
 
 function App() {
+  const { isLoading } = useApi();
   return (
     <AppContainer className="App">
       <NavBar />
-      <RecipesContainer />
+      {isLoading ? <Loader /> : <RecipesContainer />}
     </AppContainer>
   );
 }

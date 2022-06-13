@@ -8,7 +8,7 @@ const Container = styled.div`
   padding: 0.25rem 0.5rem;
   background-color: transparent;
   color: var(--main-blue);
-  width: 380px;
+  width: 580px;
   height: 200px;
   border-radius: 0.2rem;
   border: 2px solid var(--main-blue);

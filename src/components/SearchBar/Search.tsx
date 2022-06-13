@@ -1,4 +1,4 @@
-import { ChangeEvent, useCallback, KeyboardEvent } from "react";
+import { ChangeEvent, useCallback, KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { Search as SearchIcon } from "@mui/icons-material";
 
@@ -36,19 +36,22 @@ const SearchInput = styled.input`
 export default function Search() {
   const { getByQuery } = useApi();
   const { setRecipes } = useRecipes();
-  const { query, setQuery } = useSearch();
+  const { setQuery } = useSearch();
+
+  const [searchTerm, setSearchTerm] = useState("");
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setQuery(e.target.value);
+      setSearchTerm(e.target.value);
     },
-    [setQuery]
+    [setSearchTerm]
   );
 
   const handleSearch = useCallback(async () => {
-    const fetchedRecipes = await getByQuery(query);
+    const fetchedRecipes = await getByQuery(searchTerm);
     setRecipes(fetchedRecipes);
-  }, [getByQuery, query, setRecipes]);
+    setQuery(searchTerm);
+  }, [getByQuery, searchTerm, setQuery, setRecipes]);
 
   const handleSearchByEnter = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
@@ -64,7 +67,7 @@ export default function Search() {
       <SearchInput
         type="text"
         placeholder="Search for a recipe ..."
-        value={query}
+        value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleSearchByEnter}
       />

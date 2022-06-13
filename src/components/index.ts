@@ -4,3 +4,4 @@ export { Button } from "./Button";
 export { RecipeBox } from "./RecipeBox";
 export { RecipesContainer } from "./RecipesContainer";
 export { Paginate } from "./Paginate";
+export { Loader } from "./Loader";
