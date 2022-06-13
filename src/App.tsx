@@ -1,6 +1,6 @@
-import React from "react";
 import styled from "styled-components";
-import { NavBar, Button } from "./components";
+import { NavBar, RecipeBox } from "./components";
+import { useRecipes, useApi } from "./context";
 
 const AppContainer = styled.div`
   display: flex;
@@ -9,25 +9,37 @@ const AppContainer = styled.div`
   justify-content: center;
   min-height: 100vh;
   background-color: var(--main-white);
-  width: 100%;
+  width: 100vw;
+  padding: 1rem;
+`;
+
+const RecipesContainer = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 50%;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 4rem;
 `;
 
 function App() {
+  const { recipes } = useRecipes();
+  const { responseInfo } = useApi();
   return (
     <AppContainer className="App">
       <NavBar />
-      <div
-        className="buttons"
-        style={{
-          display: "flex",
-          width: "40rem",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <Button theme="primary" content="Primary button" />
-        <Button theme="secondary" content="Secondary button" />
-        <Button theme="tertiary" content="Tertiary button" />
-      </div>
+      {!!recipes.length && (
+        <h3 style={{ marginTop: "4rem" }}>
+          {`Showing ${recipes.length} recipes from ${responseInfo.totalResults}`}
+        </h3>
+      )}
+      <RecipesContainer>
+        {recipes?.map((recipe) => (
+          <RecipeBox key={recipe.id} recipe={recipe} />
+        ))}
+      </RecipesContainer>
     </AppContainer>
   );
 }
