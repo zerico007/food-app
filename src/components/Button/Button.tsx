@@ -67,9 +67,6 @@ const StyledButton = styled.button<Omit<ButtonProps, "content">>`
   border-radius: 0.2rem;
   transition: all 0.3s ease-in-out;
 
-  :hover {
-    transform: scale(1.05);
-  }
   ${(props) => determineThemeCSS(props.theme)};
 `;
 
