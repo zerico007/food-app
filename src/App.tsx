@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { NavBar, RecipesContainer, Loader, RecipeDetails } from "./components";
 import { useApi } from "./context";
@@ -34,11 +34,7 @@ function App() {
           <Loader />
         ) : (
           <Routes>
-            <Route path="/food-app/home" element={<RecipesContainer />} />
-            <Route
-              path="/food-app/"
-              element={<Navigate to="/home" replace />}
-            />
+            <Route path="/food-app" element={<RecipesContainer />} />
             <Route path="/food-app/recipe/:id" element={<RecipeDetails />} />
           </Routes>
         )}
