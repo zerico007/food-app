@@ -51,6 +51,7 @@ export default function Search() {
     const fetchedRecipes = await getByQuery(searchTerm);
     setRecipes(fetchedRecipes);
     setQuery(searchTerm);
+    setSearchTerm("");
   }, [getByQuery, searchTerm, setQuery, setRecipes]);
 
   const handleSearchByEnter = useCallback(

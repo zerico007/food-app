@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
 import { Search } from "..";
-import { useRecipes, useApi, useSearch } from "../../context";
+import { useRecipes, useApi, useSearch, useRecipeDetails } from "../../context";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -38,6 +38,7 @@ export default function NavBar() {
   const { setRecipes } = useRecipes();
   const { setResponseInfo } = useApi();
   const { setQuery } = useSearch();
+  const { setRecipeDetails } = useRecipeDetails();
 
   const clearSearch = useCallback(() => {
     setQuery("");
@@ -47,7 +48,8 @@ export default function NavBar() {
       offset: 0,
     });
     setRecipes([]);
-  }, [setQuery, setResponseInfo, setRecipes]);
+    setRecipeDetails({} as IRecipeDetails);
+  }, [setQuery, setResponseInfo, setRecipes, setRecipeDetails]);
 
   return (
     <StyledNav>

@@ -64,7 +64,6 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
   const handleGetRecipeDetails = useCallback(async () => {
     try {
       const fetchedRecipe = await getRecipeDetails(id.toString());
-      console.log(fetchedRecipe);
       setRecipeDetails(fetchedRecipe);
       navigate(`/recipe/${id}`);
     } catch (error) {

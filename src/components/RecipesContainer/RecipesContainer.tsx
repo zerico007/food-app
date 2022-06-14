@@ -66,7 +66,7 @@ export default function Recipes() {
         </Heading>
       ) : (
         <Heading>
-          <h3 style={{ fontWeight: 500 }}>Search for your favorite recipe!</h3>
+          <h2 style={{ fontWeight: 500 }}>Search for your favorite recipe!</h2>
         </Heading>
       )}
       <RecipesContainer>
