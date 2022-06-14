@@ -65,7 +65,7 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
     try {
       const fetchedRecipe = await getRecipeDetails(id.toString());
       setRecipeDetails(fetchedRecipe);
-      navigate(`/recipe/${id}`);
+      navigate(`/food-app/recipe/${id}`);
     } catch (error) {
       console.log(error);
     }

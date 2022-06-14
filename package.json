@@ -1,7 +1,7 @@
 {
   "name": "food-app",
   "version": "0.1.0",
-  "homepage": "https://zerico007.github.io/food-app/home",
+  "homepage": "https://zerico007.github.io/food-app/",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.9.3",

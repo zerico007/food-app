@@ -34,9 +34,12 @@ function App() {
           <Loader />
         ) : (
           <Routes>
-            <Route path="/home" element={<RecipesContainer />} />
-            <Route path="/" element={<Navigate to="/home" replace />} />
-            <Route path="/recipe/:id" element={<RecipeDetails />} />
+            <Route path="/food-app/home" element={<RecipesContainer />} />
+            <Route
+              path="/food-app/"
+              element={<Navigate to="/home" replace />}
+            />
+            <Route path="/food-app/recipe/:id" element={<RecipeDetails />} />
           </Routes>
         )}
       </InnerContainer>

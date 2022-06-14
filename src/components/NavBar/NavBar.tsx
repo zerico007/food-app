@@ -38,7 +38,7 @@ export default function NavBar() {
     <StyledNav>
       <Logo
         onClick={() => {
-          navigate("/home");
+          navigate("/food-app/home");
           clearSession();
         }}
       >
