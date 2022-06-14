@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import styled from "styled-components";
-import { RecipeBox, Paginate, Button } from "..";
+import { RecipeBox, Paginate, Button, Search } from "..";
 import { useRecipes, useApi, useSearch } from "../../context";
 
 const Wrapper = styled.div`
@@ -48,10 +48,13 @@ export default function Recipes() {
 
   return (
     <Wrapper>
+      <Search />
       {!!recipes.length ? (
         <Heading>
           <p>
-            {`Showing ${number} results of ${totalResults} for "${query}".`}
+            {`Showing ${
+              number < totalResults ? number : totalResults
+            } results of ${totalResults} for "${query}".`}
           </p>
           <Paginate />
           <Button

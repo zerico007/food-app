@@ -2,12 +2,11 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 
-import { Search } from "..";
 import { useRecipes, useApi, useSearch, useRecipeDetails } from "../../context";
 
 const StyledNav = styled.nav`
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 0.25rem 0.5rem;
   background-color: var(--main-blue);
@@ -61,7 +60,6 @@ export default function NavBar() {
       >
         Foodie!
       </Logo>
-      <Search />
     </StyledNav>
   );
 }

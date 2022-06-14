@@ -21,7 +21,7 @@ const buttonCSS = {
     }
   `,
   secondary: css`
-    background-color: var(--main-white);
+    background-color: #fff;
     color: var(--main-blue);
     border: 2px solid var(--main-blue);
 

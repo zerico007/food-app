@@ -10,15 +10,15 @@ const StyledSearch = styled.div`
   justify-content: space-between;
   padding: 0.25rem 0.5rem;
   align-items: center;
-  background-color: transparent;
+  background-color: #fff;
   color: var(--main-white);
-  width: 30rem;
-  height: 2.5rem;
+  width: 35rem;
+  height: 3.5rem;
   font-size: 1rem;
   font-weight: normal;
-  border-radius: 0.2rem;
+  border-radius: 0.3rem;
   box-sizing: border-box;
-  border: 1px solid var(--main-white);
+  border: 3px solid var(--main-blue);
 `;
 
 const SearchInput = styled.input`
@@ -29,8 +29,8 @@ const SearchInput = styled.input`
   padding: 0.5rem;
   box-sizing: border-box;
   border-radius: 0.2rem;
-  background-color: rgba(0, 0, 0, 0.2);
-  color: var(--main-white);
+  background-color: transparent;
+  color: var(--main-text-color);
 `;
 
 export default function Search() {
@@ -76,7 +76,7 @@ export default function Search() {
         onClick={handleSearch}
         theme="nav"
         width="fit-content"
-        content={<SearchIcon />}
+        content={<SearchIcon style={{ color: "var(--main-text-color)" }} />}
       />
     </StyledSearch>
   );
