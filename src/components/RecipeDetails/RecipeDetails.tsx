@@ -1,7 +1,18 @@
 import styled from "styled-components";
 import parse from "html-react-parser";
+import { ArrowBackIosNew } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
+import { useClearSession } from "../../hooks";
 import { useRecipeDetails } from "../../context";
+import { Button } from "..";
+
+const Parent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+`;
 
 const Wrapper = styled.div`
   width: 90%;
@@ -64,34 +75,62 @@ const InfoContainer = styled.div`
 
 export default function RecipeDetails() {
   const { recipeDetails } = useRecipeDetails();
+  const { clearSession } = useClearSession();
+  const navigate = useNavigate();
+
   const { image, ingredients, instructions, summary, title } = recipeDetails;
 
   return (
-    <Wrapper>
-      <h1>{title}</h1>
-      <Container>
-        <ImageContainer>
-          <img src={image} alt={title} loading="eager" />
-        </ImageContainer>
-        <InfoContainer>
-          <div>
-            <h4>Summary</h4>
-            <p>{parse(summary)}</p>
+    <Parent>
+      <Button
+        theme="primary"
+        width="13rem"
+        content={
+          <div
+            style={{
+              display: "flex",
+              height: "100%",
+              width: "100%",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <ArrowBackIosNew />
+            <span style={{ fontSize: "18px" }}>Back to search</span>
           </div>
-          <div>
-            <h4>Ingredients</h4>
-            <ul>
-              {ingredients.map((ingredient: string, index: number) => (
-                <li key={index}>{ingredient}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4>Instructions</h4>
-            {instructions && <p>{parse(instructions)}</p>}
-          </div>
-        </InfoContainer>
-      </Container>
-    </Wrapper>
+        }
+        onClick={() => {
+          clearSession();
+          navigate("/");
+        }}
+        margin="2rem 0"
+      />
+      <Wrapper>
+        <h1>{title}</h1>
+        <Container>
+          <ImageContainer>
+            <img src={image} alt={title} loading="eager" />
+          </ImageContainer>
+          <InfoContainer>
+            <div>
+              <h4>Summary</h4>
+              <p>{parse(summary)}</p>
+            </div>
+            <div>
+              <h4>Ingredients</h4>
+              <ul>
+                {ingredients.map((ingredient: string, index: number) => (
+                  <li key={index}>{ingredient}</li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h4>Instructions</h4>
+              {instructions && <p>{parse(instructions)}</p>}
+            </div>
+          </InfoContainer>
+        </Container>
+      </Wrapper>
+    </Parent>
   );
 }

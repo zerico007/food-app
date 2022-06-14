@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useCallback } from "react";
-
-import { useRecipes, useApi, useSearch, useRecipeDetails } from "../../context";
+import { useClearSession } from "../../hooks";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -34,28 +32,14 @@ const Logo = styled.h2`
 
 export default function NavBar() {
   const navigate = useNavigate();
-  const { setRecipes } = useRecipes();
-  const { setResponseInfo } = useApi();
-  const { setQuery } = useSearch();
-  const { setRecipeDetails } = useRecipeDetails();
-
-  const clearSearch = useCallback(() => {
-    setQuery("");
-    setResponseInfo({
-      totalResults: 0,
-      number: 0,
-      offset: 0,
-    });
-    setRecipes([]);
-    setRecipeDetails({} as IRecipeDetails);
-  }, [setQuery, setResponseInfo, setRecipes, setRecipeDetails]);
+  const { clearSession } = useClearSession();
 
   return (
     <StyledNav>
       <Logo
         onClick={() => {
           navigate("/home");
-          clearSearch();
+          clearSession();
         }}
       >
         Foodie!

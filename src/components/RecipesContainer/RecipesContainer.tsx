@@ -1,7 +1,8 @@
-import { useCallback } from "react";
 import styled from "styled-components";
+
 import { RecipeBox, Paginate, Button, Search } from "..";
 import { useRecipes, useApi, useSearch } from "../../context";
+import { useClearSession } from "../../hooks";
 
 const Wrapper = styled.div`
   display: flex;
@@ -31,20 +32,12 @@ const Heading = styled.div`
 `;
 
 export default function Recipes() {
-  const { recipes, setRecipes } = useRecipes();
-  const { responseInfo, setResponseInfo } = useApi();
-  const { query, setQuery } = useSearch();
-  const { totalResults, number } = responseInfo;
+  const { recipes } = useRecipes();
+  const { responseInfo } = useApi();
+  const { query } = useSearch();
+  const { clearSession } = useClearSession();
 
-  const clearSearch = useCallback(() => {
-    setQuery("");
-    setResponseInfo({
-      totalResults: 0,
-      number: 0,
-      offset: 0,
-    });
-    setRecipes([]);
-  }, [setQuery, setResponseInfo, setRecipes]);
+  const { totalResults, number } = responseInfo;
 
   return (
     <Wrapper>
@@ -58,7 +51,7 @@ export default function Recipes() {
           </p>
           <Paginate />
           <Button
-            onClick={clearSearch}
+            onClick={clearSession}
             content="clear search"
             theme="secondary"
           />
