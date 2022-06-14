@@ -5,3 +5,4 @@ export { RecipeBox } from "./RecipeBox";
 export { RecipesContainer } from "./RecipesContainer";
 export { Paginate } from "./Paginate";
 export { Loader } from "./Loader";
+export { RecipeDetails } from "./RecipeDetails";

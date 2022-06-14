@@ -1,5 +1,9 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+
 import { Search } from "..";
+import { useRecipes, useApi, useSearch } from "../../context";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -26,12 +30,35 @@ const StyledNav = styled.nav`
 
 const Logo = styled.h2`
   color: var(--main-white);
+  cursor: pointer;
 `;
 
 export default function NavBar() {
+  const navigate = useNavigate();
+  const { setRecipes } = useRecipes();
+  const { setResponseInfo } = useApi();
+  const { setQuery } = useSearch();
+
+  const clearSearch = useCallback(() => {
+    setQuery("");
+    setResponseInfo({
+      totalResults: 0,
+      number: 0,
+      offset: 0,
+    });
+    setRecipes([]);
+  }, [setQuery, setResponseInfo, setRecipes]);
+
   return (
     <StyledNav>
-      <Logo>Foodie!</Logo>
+      <Logo
+        onClick={() => {
+          navigate("/home");
+          clearSearch();
+        }}
+      >
+        Foodie!
+      </Logo>
       <Search />
     </StyledNav>
   );

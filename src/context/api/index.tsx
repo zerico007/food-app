@@ -13,6 +13,7 @@ interface IApiContext {
   isLoading: boolean;
   setResponseInfo: (responseInfo: ResponseInfo) => void;
   getByQuery: (query: string, offSet?: string) => Promise<IRecipe[]>;
+  getRecipeDetails: (recipeId: string) => Promise<IRecipeDetails>;
 }
 
 const ApiContext = createContext<IApiContext>({
@@ -22,13 +23,21 @@ const ApiContext = createContext<IApiContext>({
   getByQuery: () => {
     return Promise.resolve([]);
   },
+  getRecipeDetails: () => {
+    return Promise.resolve({} as IRecipeDetails);
+  },
 });
 
 const API_KEY = "ca682ad0c2734f9f8af18638e7b6d796";
-const ROOT_URL = "https://api.spoonacular.com/recipes/complexSearch";
+const ROOT_SEARCH = "https://api.spoonacular.com/recipes/complexSearch";
+const ROOT_DETAILS = "https://api.spoonacular.com/recipes/";
 
-const foodApi = axios.create({
-  baseURL: ROOT_URL,
+const foodSearchApi = axios.create({
+  baseURL: ROOT_SEARCH,
+});
+
+const foodDetailsApi = axios.create({
+  baseURL: ROOT_DETAILS,
 });
 
 export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
@@ -45,7 +54,7 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     async (query: string, offSet?: string) => {
       setIsLoading(true);
       try {
-        const response = (await foodApi.get(
+        const response = (await foodSearchApi.get(
           `?query=${query}&offset=${offSet ?? "0"}&apiKey=${API_KEY}`
         )) as AxiosResponse<ApiResponse>;
         const { offset, number, totalResults } = response.data;
@@ -61,14 +70,53 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     [setResponseInfo]
   );
 
+  const getRecipeDetails = useCallback(
+    async (recipeId: string) => {
+      setIsLoading(true);
+      try {
+        const response = await foodDetailsApi.get(
+          `${recipeId}/information?includeNutrition=false&apiKey=${API_KEY}`
+        );
+        const {
+          id,
+          title,
+          image,
+          imageType,
+          summary,
+          instructions,
+          extendedIngredients,
+        } = response.data;
+        const ingredients = extendedIngredients.map(
+          ({ original }: { original: string }) => original
+        );
+        return {
+          id,
+          title,
+          image,
+          imageType,
+          summary,
+          instructions,
+          ingredients,
+        };
+      } catch (error) {
+        console.log(error);
+        return {} as IRecipeDetails;
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [setIsLoading]
+  );
+
   const providerValue = useMemo(
     (): IApiContext => ({
       responseInfo,
       isLoading,
       setResponseInfo,
       getByQuery,
+      getRecipeDetails,
     }),
-    [getByQuery, isLoading, responseInfo, setResponseInfo]
+    [getByQuery, getRecipeDetails, isLoading, responseInfo, setResponseInfo]
   );
 
   return (

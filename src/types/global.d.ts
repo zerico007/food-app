@@ -14,6 +14,12 @@ interface IRecipe {
   };
 }
 
+interface IRecipeDetails extends IRecipe {
+  ingredients: string[];
+  summary: string;
+  instructions: string;
+}
+
 interface ResponseInfo {
   offset: number;
   number: number;

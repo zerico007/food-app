@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 4rem;
 `;
 const RecipesContainer = styled.div`
   display: flex;
@@ -19,7 +18,7 @@ const RecipesContainer = styled.div`
   height: auto;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: 4rem;
+  margin-top: 2rem;
 `;
 
 const Heading = styled.div`

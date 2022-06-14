@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
+import { Routes, Route, Navigate } from "react-router-dom";
 
-import { NavBar, RecipesContainer, Loader } from "./components";
+import { NavBar, RecipesContainer, Loader, RecipeDetails } from "./components";
 import { useApi } from "./context";
 
 const AppContainer = styled.div`
@@ -14,12 +15,31 @@ const AppContainer = styled.div`
   padding: 1rem;
 `;
 
+const InnerContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding-top: 4rem;
+`;
+
 function App() {
   const { isLoading } = useApi();
   return (
     <AppContainer className="App">
       <NavBar />
-      {isLoading ? <Loader /> : <RecipesContainer />}
+      <InnerContainer>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <Routes>
+            <Route path="/home" element={<RecipesContainer />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/recipe/:id" element={<RecipeDetails />} />
+          </Routes>
+        )}
+      </InnerContainer>
     </AppContainer>
   );
 }

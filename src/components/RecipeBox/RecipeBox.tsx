@@ -1,18 +1,27 @@
+import { useCallback } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { Button } from "..";
+import { useApi, useRecipeDetails } from "../../context";
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0.25rem 0.5rem;
-  background-color: transparent;
+  background-color: #fff;
   color: var(--main-blue);
   width: 580px;
   height: 200px;
   border-radius: 0.2rem;
   border: 2px solid var(--main-blue);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 500px) {
+    width: 100%;
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const ImageContainer = styled.div`
@@ -20,9 +29,12 @@ const ImageContainer = styled.div`
   width: 50%;
   height: 100%;
 
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+
   img {
     width: 100%;
-    height: 100%;
     object-fit: cover;
   }
 `;
@@ -36,10 +48,29 @@ const TitleContainer = styled.div`
   height: 100%;
   padding: 0.5rem;
   text-align: center;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
-  const { image, title } = recipe;
+  const { image, title, id } = recipe;
+  const { getRecipeDetails } = useApi();
+  const { setRecipeDetails } = useRecipeDetails();
+
+  const navigate = useNavigate();
+
+  const handleGetRecipeDetails = useCallback(async () => {
+    try {
+      const fetchedRecipe = await getRecipeDetails(id.toString());
+      console.log(fetchedRecipe);
+      setRecipeDetails(fetchedRecipe);
+      navigate(`/recipe/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [getRecipeDetails, id, navigate, setRecipeDetails]);
 
   return (
     <Container>
@@ -48,7 +79,12 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
       </ImageContainer>
       <TitleContainer>
         <h5>{title}</h5>
-        <Button content="view recipe" theme="primary" height="1.8rem" />
+        <Button
+          onClick={handleGetRecipeDetails}
+          content="view recipe"
+          theme="primary"
+          height="1.8rem"
+        />
       </TitleContainer>
     </Container>
   );
