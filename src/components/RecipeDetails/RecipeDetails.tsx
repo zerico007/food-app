@@ -101,7 +101,7 @@ export default function RecipeDetails() {
         }
         onClick={() => {
           clearSession();
-          navigate("/food-app/home");
+          navigate("/food-app");
         }}
         margin="2rem 0"
       />
