@@ -126,7 +126,7 @@ export default function RecipeDetails() {
             </div>
             <div>
               <h4>Instructions</h4>
-              {instructions && <p>{parse(instructions)}</p>}
+              {instructions && <div>{parse(instructions)}</div>}
             </div>
           </InfoContainer>
         </Container>

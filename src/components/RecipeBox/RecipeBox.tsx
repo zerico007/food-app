@@ -8,14 +8,12 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.25rem 0.5rem;
+  padding: 0.5rem;
   background-color: #fff;
   color: var(--main-blue);
   width: 580px;
   height: 200px;
   border-radius: 0.2rem;
-  border: 2px solid var(--main-blue);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);
 
   @media (max-width: 500px) {
     width: 100%;
