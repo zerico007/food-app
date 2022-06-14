@@ -19,6 +19,10 @@ const StyledSearch = styled.div`
   border-radius: 0.3rem;
   box-sizing: border-box;
   border: 3px solid var(--main-blue);
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const SearchInput = styled.input`
