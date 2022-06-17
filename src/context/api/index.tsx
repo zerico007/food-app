@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import {
   createContext,
   useCallback,
@@ -12,7 +12,11 @@ interface IApiContext {
   responseInfo: ResponseInfo;
   isLoading: boolean;
   setResponseInfo: (responseInfo: ResponseInfo) => void;
-  getByQuery: (query: string, offSet?: string) => Promise<IRecipe[]>;
+  getByQuery: (
+    query: string,
+    offSet?: string,
+    type?: string
+  ) => Promise<IRecipe[]>;
   getRecipeDetails: (recipeId: string) => Promise<IRecipeDetails>;
 }
 
@@ -51,12 +55,14 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     }
   );
   const getByQuery = useCallback(
-    async (query: string, offSet?: string) => {
+    async (query: string, offSet?: string, type?: string) => {
       setIsLoading(true);
       try {
-        const response = (await foodSearchApi.get(
-          `?query=${query}&offset=${offSet ?? "0"}&apiKey=${API_KEY}`
-        )) as AxiosResponse<ApiResponse>;
+        const response = await foodSearchApi.get(
+          `?query=${query}&offset=${offSet ?? "0"}&type=${
+            type ?? ""
+          }&apiKey=${API_KEY}`
+        );
         const { offset, number, totalResults } = response.data;
         setResponseInfo({ offset, number, totalResults });
         return response.data.results;

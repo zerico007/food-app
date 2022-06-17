@@ -7,3 +7,4 @@ export { Paginate } from "./Paginate";
 export { Loader } from "./Loader";
 export { RecipeDetails } from "./RecipeDetails";
 export { Toggle } from "./Toggle";
+export * from "./Select";

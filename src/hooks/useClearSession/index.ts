@@ -5,11 +5,12 @@ import { useRecipes, useApi, useSearch, useRecipeDetails } from "../../context";
 export function useClearSession() {
   const { setRecipes } = useRecipes();
   const { setResponseInfo } = useApi();
-  const { setQuery } = useSearch();
+  const { setQuery, setCategory } = useSearch();
   const { setRecipeDetails } = useRecipeDetails();
 
   const clearSession = useCallback(() => {
     setQuery("");
+    setCategory("");
     setResponseInfo({
       totalResults: 0,
       number: 0,
@@ -17,7 +18,7 @@ export function useClearSession() {
     });
     setRecipes([]);
     setRecipeDetails({} as IRecipeDetails);
-  }, [setQuery, setResponseInfo, setRecipes, setRecipeDetails]);
+  }, [setQuery, setResponseInfo, setRecipes, setRecipeDetails, setCategory]);
 
   return { clearSession };
 }

@@ -3,9 +3,18 @@ import styled from "styled-components";
 import { Search as SearchIcon } from "@mui/icons-material";
 
 import { Button } from "..";
-import { useApi, useRecipes, useSearch } from "../../context";
+import { useApi, useRecipes, useSearch, useTheme } from "../../context";
 
-const StyledSearch = styled.div`
+const determineBorderColor = (theme: "light" | "dark") => {
+  return theme === "light"
+    ? "3px solid var(--main-blue)"
+    : "3px solid var(--main-pink-hovered)";
+};
+
+const StyledSearch = styled.div<{
+  isFocused: boolean;
+  theme: "light" | "dark";
+}>`
   display: flex;
   justify-content: space-between;
   padding: 0.25rem 0.5rem;
@@ -18,7 +27,8 @@ const StyledSearch = styled.div`
   font-weight: normal;
   border-radius: 0.3rem;
   box-sizing: border-box;
-  border: 3px solid var(--main-blue);
+  border: ${(props) =>
+    props.isFocused ? determineBorderColor(props.theme) : "none"};
 
   @media (max-width: 500px) {
     width: 100%;
@@ -40,9 +50,11 @@ const SearchInput = styled.input`
 export default function Search() {
   const { getByQuery } = useApi();
   const { setRecipes } = useRecipes();
-  const { setQuery } = useSearch();
+  const { setQuery, category } = useSearch();
+  const { theme } = useTheme();
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,11 +64,11 @@ export default function Search() {
   );
 
   const handleSearch = useCallback(async () => {
-    const fetchedRecipes = await getByQuery(searchTerm);
+    const fetchedRecipes = await getByQuery(searchTerm, "0", category);
     setRecipes(fetchedRecipes);
     setQuery(searchTerm);
     setSearchTerm("");
-  }, [getByQuery, searchTerm, setQuery, setRecipes]);
+  }, [getByQuery, searchTerm, setQuery, setRecipes, category]);
 
   const handleSearchByEnter = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
@@ -68,13 +80,15 @@ export default function Search() {
   );
 
   return (
-    <StyledSearch>
+    <StyledSearch theme={theme} isFocused={isFocused}>
       <SearchInput
         type="text"
         placeholder="Search for a recipe ..."
         value={searchTerm}
         onChange={handleChange}
         onKeyDown={handleSearchByEnter}
+        onFocus={() => setIsFocused(true)}
+        onBlur={() => setIsFocused(false)}
       />
       <Button
         onClick={handleSearch}
