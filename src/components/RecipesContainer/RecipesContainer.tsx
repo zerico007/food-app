@@ -66,7 +66,7 @@ export default function Recipes() {
 
   const { totalResults, number } = responseInfo;
 
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [, setSelectedOption] = useState<Option | null>(null);
 
   const handleChange = useCallback(
     (selected: Option | null) => {
@@ -121,7 +121,7 @@ export default function Recipes() {
         <Select
           options={selectOptions}
           onChange={handleChange}
-          selected={selectedOption}
+          selected={category ? { value: category, label: category } : null}
           margin="1rem 0"
         />
       </SearchDiv>
