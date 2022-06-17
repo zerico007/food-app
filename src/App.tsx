@@ -3,14 +3,15 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Routes, Route } from "react-router-dom";
 
 import { NavBar, RecipesContainer, Loader, RecipeDetails } from "./components";
-import { useApi } from "./context";
+import { useApi, useTheme } from "./context";
 
-const AppContainer = styled.div`
+const AppContainer = styled.div<{ theme: "light" | "dark" }>`
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: var(--main-white);
+  background-color: ${(props) =>
+    props.theme === "light" ? "var(--main-white)" : "var(--oxford-blue-lite)"};
   width: 100vw;
   padding: 1rem;
 `;
@@ -26,8 +27,9 @@ const InnerContainer = styled.div`
 
 function App() {
   const { isLoading } = useApi();
+  const { theme } = useTheme();
   return (
-    <AppContainer className="App">
+    <AppContainer className="App" theme={theme}>
       <NavBar />
       <InnerContainer>
         {isLoading ? (

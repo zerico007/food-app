@@ -7,6 +7,10 @@
   --main-white: #eaebed;
   --main-white-hovered: #efe2e2;
   --main-text-color: #36454f;
+  --oxford-blue: #080c24ff;
+  --oxford-blue-lite: #151e34ff;
+  --blue-crayola: #3071e8ff;
+  --celadon-blue: #1f7ea7ff;
 }
 
 body {
@@ -14,7 +18,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--main-white);
+  background-color: var(--oxford-blue-lite);
   overflow-x: hidden;
 }
 

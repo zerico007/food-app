@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 import { RecipeBox, Paginate, Button, Search } from "..";
-import { useRecipes, useApi, useSearch } from "../../context";
+import { useRecipes, useApi, useSearch, useTheme } from "../../context";
 import { useClearSession } from "../../hooks";
 
 const Wrapper = styled.div`
@@ -22,13 +22,14 @@ const RecipesContainer = styled.div`
   margin-top: 2rem;
 `;
 
-const Heading = styled.div`
+const Heading = styled.div<{ theme: "light" | "dark" }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: var(--main-blue);
+  color: ${(props) =>
+    props.theme === "light" ? "var(--main-blue)" : "var(--main-white)"};
 `;
 
 export default function Recipes() {
@@ -36,6 +37,7 @@ export default function Recipes() {
   const { responseInfo } = useApi();
   const { query } = useSearch();
   const { clearSession } = useClearSession();
+  const { theme } = useTheme();
 
   const { totalResults, number } = responseInfo;
 
@@ -43,7 +45,7 @@ export default function Recipes() {
     <Wrapper>
       <Search />
       {!!recipes.length ? (
-        <Heading>
+        <Heading theme={theme}>
           <p>
             {`Showing ${
               number < totalResults ? number : totalResults
@@ -57,11 +59,11 @@ export default function Recipes() {
           />
         </Heading>
       ) : query ? (
-        <Heading>
+        <Heading theme={theme}>
           <p>{`No results for "${query}".`}</p>
         </Heading>
       ) : (
-        <Heading>
+        <Heading theme={theme}>
           <h2 style={{ fontWeight: 500 }}>Search for your favorite recipe!</h2>
         </Heading>
       )}

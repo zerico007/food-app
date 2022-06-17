@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useClearSession } from "../../hooks";
+import { useTheme } from "../../context";
+import { Toggle } from "..";
+import { useCallback } from "react";
 
 const StyledNav = styled.nav`
   display: flex;
@@ -33,6 +36,11 @@ const Logo = styled.h2`
 export default function NavBar() {
   const navigate = useNavigate();
   const { clearSession } = useClearSession();
+  const { theme, setTheme } = useTheme();
+
+  const handleThemeToggle = useCallback(() => {
+    setTheme(theme === "light" ? "dark" : "light");
+  }, [setTheme, theme]);
 
   return (
     <StyledNav>
@@ -44,6 +52,7 @@ export default function NavBar() {
       >
         Foodie!
       </Logo>
+      <Toggle on={theme === "light"} onClick={handleThemeToggle} />
     </StyledNav>
   );
 }
