@@ -2,7 +2,7 @@ import { ChangeEvent, useCallback, KeyboardEvent, useState } from "react";
 import styled from "styled-components";
 import { Search as SearchIcon } from "@mui/icons-material";
 
-import { Button } from "..";
+import { Button, Input } from "..";
 import { useApi, useRecipes, useSearch, useTheme } from "../../context";
 
 const determineBorderColor = (theme: "light" | "dark") => {
@@ -33,18 +33,6 @@ const StyledSearch = styled.div<{
   @media (max-width: 500px) {
     width: 100%;
   }
-`;
-
-const SearchInput = styled.input`
-  width: 90%;
-  height: 100%;
-  border: none;
-  outline: none;
-  padding: 0.5rem;
-  box-sizing: border-box;
-  border-radius: 0.2rem;
-  background-color: transparent;
-  color: var(--main-text-color);
 `;
 
 export default function Search() {
@@ -81,7 +69,9 @@ export default function Search() {
 
   return (
     <StyledSearch theme={theme} isFocused={isFocused}>
-      <SearchInput
+      <Input
+        width="90%"
+        padding="0.5rem"
         type="text"
         placeholder="Search for a recipe ..."
         value={searchTerm}

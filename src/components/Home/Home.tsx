@@ -1,9 +1,29 @@
-import { useCallback, useState } from "react";
-import styled from "styled-components";
+import { useCallback, useRef, useState } from "react";
+import styled, { keyframes } from "styled-components";
 
-import { RecipeBox, Paginate, Button, Search, Select, Option } from "..";
+import { Paginate, Button, Search, Select, Option, Recipes } from "..";
 import { useRecipes, useApi, useSearch, useTheme } from "../../context";
 import { useClearSession } from "../../hooks";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    height: 0;
+  } to {
+    opacity: 1;
+    height: 200px;
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1;
+    height: 200px;
+  } to {
+    opacity: 0;
+    height: 0;
+  }
+`;
 
 const Wrapper = styled.div`
   display: flex;
@@ -11,16 +31,6 @@ const Wrapper = styled.div`
   width: 100%;
   justify-content: flex-start;
   align-items: center;
-`;
-const RecipesContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  width: 80%;
-  height: auto;
-  flex-wrap: wrap;
-  gap: 1rem;
-  margin-top: 2rem;
 `;
 
 const Heading = styled.div<{ theme: "light" | "dark" }>`
@@ -38,6 +48,23 @@ const SearchDiv = styled.div`
   flex-direction: column;
   width: 100%;
   align-items: center;
+
+  .advanced-search.close {
+    animation: ${fadeOut} 0.3s ease-in-out;
+  }
+`;
+
+const AdvancedSearch = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 35rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  border-radius: 0.5rem;
+  height: 200px;
+  background-color: #fff;
+  animation: ${fadeIn} 0.3s ease-in-out;
 `;
 
 const selectOptions = [
@@ -57,7 +84,7 @@ const selectOptions = [
   "snack",
 ].map((option) => ({ value: option, label: option }));
 
-export default function Recipes() {
+export default function Home() {
   const { recipes } = useRecipes();
   const { responseInfo, getByQuery } = useApi();
   const { query, setCategory, category } = useSearch();
@@ -67,6 +94,20 @@ export default function Recipes() {
   const { totalResults, number } = responseInfo;
 
   const [, setSelectedOption] = useState<Option | null>(null);
+  const [showAdvancedSearch, setShowAdvancedSearch] = useState(false);
+
+  const advancedSearchRef = useRef<HTMLDivElement>(null);
+
+  const toggleAdvancedSearch = useCallback(() => {
+    if (showAdvancedSearch) {
+      advancedSearchRef.current?.classList.add("close");
+      setTimeout(() => {
+        setShowAdvancedSearch(false);
+      }, 300);
+    } else {
+      setShowAdvancedSearch(true);
+    }
+  }, [showAdvancedSearch]);
 
   const handleChange = useCallback(
     (selected: Option | null) => {
@@ -124,13 +165,18 @@ export default function Recipes() {
           selected={category ? { value: category, label: category } : null}
           margin="1rem 0"
         />
+        <Button
+          onClick={toggleAdvancedSearch}
+          theme="primary"
+          content="advanced search"
+          height="1.7rem"
+        />
+        {showAdvancedSearch && (
+          <AdvancedSearch ref={advancedSearchRef} className="advanced-search" />
+        )}
       </SearchDiv>
       {determineHeading()}
-      <RecipesContainer>
-        {recipes?.map((recipe) => (
-          <RecipeBox key={recipe.id} recipe={recipe} />
-        ))}
-      </RecipesContainer>
+      <Recipes recipes={recipes} />
     </Wrapper>
   );
 }

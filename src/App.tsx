@@ -2,7 +2,7 @@ import styled from "styled-components";
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Routes, Route } from "react-router-dom";
 
-import { NavBar, RecipesContainer, Loader, RecipeDetails } from "./components";
+import { NavBar, Home, Loader, RecipeDetails } from "./components";
 import { useApi, useTheme } from "./context";
 
 const AppContainer = styled.div<{ theme: "light" | "dark" }>`
@@ -36,7 +36,7 @@ function App() {
           <Loader />
         ) : (
           <Routes>
-            <Route path="/food-app" element={<RecipesContainer />} />
+            <Route path="/food-app" element={<Home />} />
             <Route path="/food-app/recipe/:id" element={<RecipeDetails />} />
           </Routes>
         )}
