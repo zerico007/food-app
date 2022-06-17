@@ -1,4 +1,15 @@
 import styled from "styled-components";
+import { DarkMode, LightMode } from "@mui/icons-material";
+
+const ToggleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 0.25rem 0.5rem;
+  align-items: center;
+  background-color: transparent;
+  width: 100px;
+  height: 40px;
+`;
 
 const ToggleContainer = styled.div<{ on: boolean }>`
   display: flex;
@@ -8,7 +19,7 @@ const ToggleContainer = styled.div<{ on: boolean }>`
   height: 25px;
   border-radius: 12.5px;
   background-color: ${(props) =>
-    props.on ? "var(--oxford-blue)" : "var(--main-white)"};
+    !props.on ? "var(--oxford-blue)" : "var(--main-pink)"};
   position: relative;
   padding: 10px;
   transition: background-color 0.3s ease-in-out;
@@ -19,7 +30,7 @@ const ToggleButton = styled.div<{ on: boolean }>`
   height: 25px;
   border-radius: 25px;
   background-color: ${(props) =>
-    props.on ? "var(--main-white)" : "var(--oxford-blue)"};
+    !props.on ? "var(--main-pink)" : "var(--oxford-blue)"};
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
@@ -35,8 +46,11 @@ export default function Toggle({
   onClick: () => void;
 }) {
   return (
-    <ToggleContainer on={on}>
-      <ToggleButton on={on} onClick={onClick} />
-    </ToggleContainer>
+    <ToggleWrapper>
+      <ToggleContainer on={on}>
+        <ToggleButton on={on} onClick={onClick} />
+      </ToggleContainer>
+      {!on ? <DarkMode /> : <LightMode />}
+    </ToggleWrapper>
   );
 }
