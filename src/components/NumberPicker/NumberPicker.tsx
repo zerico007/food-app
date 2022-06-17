@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Add, Remove } from "@mui/icons-material";
 import { HTMLAttributes } from "react";
 
-import { Button } from "..";
+import { Button, Input } from "..";
 
 interface NumberPickerProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onChange"> {
@@ -31,15 +31,6 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const ValueBox = styled.div`
-  height: 100%;
-  background-color: #fff;
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  width: 60px;
-`;
-
 export default function NumberPicker({
   value,
   onChange,
@@ -64,6 +55,17 @@ export default function NumberPicker({
     onChange(value - increment);
   };
 
+  const handleInputKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    //check if key is a digit and not backspace
+    if (!e.key.match(/^\d$/) && e.key !== "Backspace") return;
+  };
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = Number(e.target.value);
+    if (isNaN(inputValue) || inputValue > max || inputValue < min) return;
+    onChange(inputValue);
+  };
+
   return (
     <Container {...rest} margin={margin}>
       <div>{label}</div>
@@ -76,7 +78,15 @@ export default function NumberPicker({
           height="100%"
           margin="0"
         />
-        <ValueBox>{value}</ValueBox>
+        <Input
+          value={value}
+          onChange={handleInputChange}
+          width="60px"
+          height="100%"
+          border="none"
+          padding="1rem"
+          onKeyDown={handleInputKeyDown}
+        />
         <Button
           onClick={handleIncrement}
           theme="primary"

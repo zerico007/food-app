@@ -30,13 +30,12 @@ const buttonCSS = {
     }
   `,
   tertiary: css`
-    background-color: var(--main-pink);
-    color: var(--main-white);
-    border: 2px solid var(--main-pink-hovered);
+    background-color: #fff;
+    color: var(--main-blue);
+    border: none;
 
     :hover {
-      background-color: var(--main-pink-hovered);
-      border: 2px solid var(--main-pink);
+      background-color: var(--main-white-hovered);
     }
   `,
   nav: css`
