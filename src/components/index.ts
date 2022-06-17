@@ -10,3 +10,4 @@ export { Toggle } from "./Toggle";
 export * from "./Select";
 export { Input } from "./Input";
 export { Recipes } from "./Recipes";
+export { NumberPicker } from "./NumberPicker";

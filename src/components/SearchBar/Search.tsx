@@ -30,7 +30,7 @@ const StyledSearch = styled.div<{
   border: ${(props) =>
     props.isFocused ? determineBorderColor(props.theme) : "none"};
 
-  @media (max-width: 500px) {
+  @media (max-width: 580px) {
     width: 100%;
   }
 `;
