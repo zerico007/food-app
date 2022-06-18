@@ -15,7 +15,8 @@ interface IApiContext {
   getByQuery: (
     query: string,
     offSet?: string,
-    type?: string
+    type?: string,
+    nutrients?: INutrientsQuery
   ) => Promise<IRecipe[]>;
   getRecipeDetails: (recipeId: string) => Promise<IRecipeDetails>;
 }
@@ -55,14 +56,29 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
     }
   );
   const getByQuery = useCallback(
-    async (query: string, offSet?: string, type?: string) => {
+    async (
+      query: string,
+      offSet?: string,
+      type?: string,
+      nutrients?: INutrientsQuery
+    ) => {
       setIsLoading(true);
+      const params = new URLSearchParams();
+      params.append("query", query);
+      params.append("offset", offSet || "0");
+      params.append("type", type || "");
+      if (nutrients) {
+        for (const [key, value] of Object.entries(nutrients)) {
+          if (value) {
+            params.append(key, value.toString());
+          }
+        }
+      }
+      params.append("apiKey", API_KEY);
       try {
-        const response = await foodSearchApi.get(
-          `?query=${query}&offset=${offSet ?? "0"}&type=${
-            type ?? ""
-          }&apiKey=${API_KEY}`
-        );
+        const response = await foodSearchApi.get("", {
+          params,
+        });
         const { offset, number, totalResults } = response.data;
         setResponseInfo({ offset, number, totalResults });
         return response.data.results;

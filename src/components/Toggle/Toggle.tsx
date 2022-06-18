@@ -11,7 +11,7 @@ const ToggleWrapper = styled.div`
   height: 40px;
 `;
 
-const ToggleContainer = styled.div<{ on: boolean }>`
+const ToggleContainer = styled.div<{ toggleOn: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
@@ -19,38 +19,38 @@ const ToggleContainer = styled.div<{ on: boolean }>`
   height: 25px;
   border-radius: 12.5px;
   background-color: ${(props) =>
-    !props.on ? "var(--oxford-blue)" : "var(--main-pink)"};
+    !props.toggleOn ? "var(--oxford-blue)" : "var(--main-pink)"};
   position: relative;
   padding: 10px;
   transition: background-color 0.3s ease-in-out;
 `;
 
-const ToggleButton = styled.div<{ on: boolean }>`
+const ToggleButton = styled.div<{ toggleOn: boolean }>`
   width: 25px;
   height: 25px;
   border-radius: 25px;
   background-color: ${(props) =>
-    !props.on ? "var(--main-pink)" : "var(--oxford-blue)"};
+    !props.toggleOn ? "var(--main-pink)" : "var(--oxford-blue)"};
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
   position: absolute;
-  left: ${(props) => (props.on ? "0" : "25px")};
+  left: ${(props) => (props.toggleOn ? "0" : "25px")};
 `;
 
 export default function Toggle({
-  on,
+  toggleOn,
   onClick,
 }: {
-  on: boolean;
+  toggleOn: boolean;
   onClick: () => void;
 }) {
   return (
     <ToggleWrapper>
-      <ToggleContainer on={on}>
-        <ToggleButton on={on} onClick={onClick} />
+      <ToggleContainer toggleOn={toggleOn}>
+        <ToggleButton toggleOn={toggleOn} onClick={onClick} />
       </ToggleContainer>
-      {!on ? <DarkMode /> : <LightMode />}
+      {!toggleOn ? <DarkMode /> : <LightMode />}
     </ToggleWrapper>
   );
 }

@@ -71,9 +71,9 @@ const selectOptions = [
 ].map((option) => ({ value: option, label: option }));
 
 export default function Home() {
-  const { recipes } = useRecipes();
+  const { recipes, setRecipes } = useRecipes();
   const { responseInfo, getByQuery } = useApi();
-  const { query, setCategory, category } = useSearch();
+  const { query, setCategory, category, nutrients } = useSearch();
   const { clearSession } = useClearSession();
   const { theme } = useTheme();
 
@@ -96,31 +96,39 @@ export default function Home() {
     }
   }, [showAdvancedSearch]);
 
-  const handleAdvancedSearch = useCallback((values: Record<string, number>) => {
-    console.log(values);
-  }, []);
+  const handleAdvancedSearch = useCallback(async () => {
+    if (query) {
+      const newFetchedRecipes = await getByQuery(
+        query,
+        "0",
+        category,
+        nutrients
+      );
+      setRecipes(newFetchedRecipes);
+    }
+  }, [query, category, getByQuery, nutrients, setRecipes]);
 
   const handleChange = useCallback(
-    (selected: Option | null) => {
+    async (selected: Option | null) => {
       setSelectedOption(selected);
       setCategory(selected?.value as string);
 
       if (query) {
-        getByQuery(query, "0", category);
+        const newRecipes = await getByQuery(query, "0", category, nutrients);
+        setRecipes(newRecipes);
       }
     },
-    [setCategory, query, category, getByQuery]
+    [setCategory, query, category, getByQuery, setRecipes, nutrients]
   );
 
   const determineHeading = useCallback(() => {
-    if (!!recipes.length) {
+    if (number && totalResults) {
       return (
         <Heading theme={theme}>
           <p>
             {`Showing ${
               number < totalResults ? number : totalResults
-            } results of ${totalResults} for "${query}".`}
-            {category ? ` Category: ${category}` : ""}
+            } results of ${totalResults}`}
           </p>
           <Paginate />
           <Button
@@ -131,10 +139,10 @@ export default function Home() {
         </Heading>
       );
     } else {
-      if (query) {
+      if (!totalResults && number) {
         return (
           <Heading theme={theme}>
-            <p>{`No results for "${query}".`}</p>
+            <p>{`No results found for "${query}". Try again.`}</p>
           </Heading>
         );
       }
@@ -144,7 +152,7 @@ export default function Home() {
         </Heading>
       );
     }
-  }, [query, recipes, number, totalResults, theme, clearSession, category]);
+  }, [number, query, totalResults, theme, clearSession]);
 
   return (
     <Wrapper>
@@ -167,7 +175,7 @@ export default function Home() {
               {showAdvancedSearch ? <KeyboardArrowDown /> : <ChevronRight />}
             </div>
           }
-          height="1.7rem"
+          height="2rem"
         />
         {showAdvancedSearch && (
           <AdvancedSearch

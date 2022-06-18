@@ -42,15 +42,19 @@ export default function NumberPicker({
   ...rest
 }: NumberPickerProps) {
   const handleIncrement = () => {
-    if (value + increment > max) {
+    const newValue = value + increment;
+    if (newValue > max) {
       onChange(max);
+      return;
     }
     onChange(value + increment);
   };
 
   const handleDecrement = () => {
-    if (value - increment < min) {
+    const newValue = value - increment;
+    if (newValue < min) {
       onChange(min);
+      return;
     }
     onChange(value - increment);
   };
@@ -81,7 +85,7 @@ export default function NumberPicker({
         <Input
           value={value}
           onChange={handleInputChange}
-          width="60px"
+          width="80px"
           height="100%"
           border="none"
           padding="1rem"

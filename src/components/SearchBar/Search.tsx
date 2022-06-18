@@ -38,25 +38,22 @@ const StyledSearch = styled.div<{
 export default function Search() {
   const { getByQuery } = useApi();
   const { setRecipes } = useRecipes();
-  const { setQuery, category } = useSearch();
+  const { setQuery, category, query } = useSearch();
   const { theme } = useTheme();
 
-  const [searchTerm, setSearchTerm] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      setSearchTerm(e.target.value);
+      setQuery(e.target.value);
     },
-    [setSearchTerm]
+    [setQuery]
   );
 
   const handleSearch = useCallback(async () => {
-    const fetchedRecipes = await getByQuery(searchTerm, "0", category);
+    const fetchedRecipes = await getByQuery(query, "0", category);
     setRecipes(fetchedRecipes);
-    setQuery(searchTerm);
-    setSearchTerm("");
-  }, [getByQuery, searchTerm, setQuery, setRecipes, category]);
+  }, [getByQuery, query, setRecipes, category]);
 
   const handleSearchByEnter = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
@@ -74,7 +71,7 @@ export default function Search() {
         padding="0.5rem"
         type="text"
         placeholder="Search for a recipe ..."
-        value={searchTerm}
+        value={query}
         onChange={handleChange}
         onKeyDown={handleSearchByEnter}
         onFocus={() => setIsFocused(true)}

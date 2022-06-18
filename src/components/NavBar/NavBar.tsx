@@ -52,7 +52,7 @@ export default function NavBar() {
       >
         Foodie!
       </Logo>
-      <Toggle on={theme === "light"} onClick={handleThemeToggle} />
+      <Toggle toggleOn={theme === "light"} onClick={handleThemeToggle} />
     </StyledNav>
   );
 }

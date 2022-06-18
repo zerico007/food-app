@@ -1,10 +1,12 @@
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes } from "react";
 import styled, { keyframes } from "styled-components";
 
 import { NumberPicker, Button } from "..";
+import { useSearch } from "../../context";
 
-interface AdvancedSearchProps extends HTMLAttributes<HTMLDivElement> {
-  onSubmit: (values: any) => void;
+interface AdvancedSearchProps
+  extends Omit<HTMLAttributes<HTMLDivElement>, "onSubmit"> {
+  onSubmit: () => void;
   onCancel: () => void;
 }
 
@@ -57,14 +59,24 @@ export default function AdvancedSearch({
   onSubmit,
   ...props
 }: AdvancedSearchProps) {
-  const [maxFat, setMaxFat] = useState(0);
-  const [maxCarbs, setMaxCarbs] = useState(0);
-  const [maxProtein, setMaxProtein] = useState(0);
-  const [maxCalories, setMaxCalories] = useState(0);
+  const { setNutrients, nutrients } = useSearch();
 
-  const handleSubmit = () => {
-    const values = { maxFat, maxCarbs, maxProtein, maxCalories };
-    onSubmit(values);
+  const { maxFat, maxCalories, maxProtein, maxCarbs } = nutrients;
+
+  const handleMaxFatChange = (value: number) => {
+    setNutrients({ ...nutrients, maxFat: value });
+  };
+
+  const handleMaxCarbsChange = (value: number) => {
+    setNutrients({ ...nutrients, maxCarbs: value });
+  };
+
+  const handleMaxProteinChange = (value: number) => {
+    setNutrients({ ...nutrients, maxProtein: value });
+  };
+
+  const handleMaxCaloriesChange = (value: number) => {
+    setNutrients({ ...nutrients, maxCalories: value });
   };
 
   return (
@@ -75,25 +87,25 @@ export default function AdvancedSearch({
             label: "Max Carbs",
             id: "max-carbs",
             value: maxCarbs,
-            onChange: setMaxCarbs,
+            onChange: handleMaxCarbsChange,
           },
           {
             label: "Max Protein",
             id: "max-protein",
             value: maxProtein,
-            onChange: setMaxProtein,
+            onChange: handleMaxProteinChange,
           },
           {
             label: "Max Fat",
             id: "max-fat",
             value: maxFat,
-            onChange: setMaxFat,
+            onChange: handleMaxFatChange,
           },
           {
             label: "Max Calories",
             id: "max-calories",
             value: maxCalories,
-            onChange: setMaxCalories,
+            onChange: handleMaxCaloriesChange,
           },
         ].map(({ label, id, value, onChange }) => (
           <NumberPicker
@@ -122,7 +134,7 @@ export default function AdvancedSearch({
           content="Apply"
           height="2rem"
           width="6rem"
-          onClick={handleSubmit}
+          onClick={onSubmit}
         />
       </ButtonsDiv>
     </Wrapper>

@@ -4,6 +4,13 @@ interface INutrient {
   unit: string;
 }
 
+interface INutrientsQuery {
+  maxFat: number;
+  maxCarbs: number;
+  maxProtein: number;
+  maxCalories: number;
+}
+
 interface IRecipe {
   id: number;
   title: string;

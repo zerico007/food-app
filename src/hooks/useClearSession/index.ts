@@ -5,7 +5,7 @@ import { useRecipes, useApi, useSearch, useRecipeDetails } from "../../context";
 export function useClearSession() {
   const { setRecipes } = useRecipes();
   const { setResponseInfo } = useApi();
-  const { setQuery, setCategory } = useSearch();
+  const { setQuery, setCategory, setNutrients } = useSearch();
   const { setRecipeDetails } = useRecipeDetails();
 
   const clearSession = useCallback(() => {
@@ -18,7 +18,20 @@ export function useClearSession() {
     });
     setRecipes([]);
     setRecipeDetails({} as IRecipeDetails);
-  }, [setQuery, setResponseInfo, setRecipes, setRecipeDetails, setCategory]);
+    setNutrients({
+      maxCalories: 0,
+      maxCarbs: 0,
+      maxProtein: 0,
+      maxFat: 0,
+    });
+  }, [
+    setQuery,
+    setResponseInfo,
+    setRecipes,
+    setRecipeDetails,
+    setCategory,
+    setNutrients,
+  ]);
 
   return { clearSession };
 }
