@@ -6,30 +6,25 @@ import { useApi, useRecipeDetails } from "../../context";
 
 const Container = styled.div`
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  height: auto;
   align-items: center;
   padding: 0.5rem;
   background-color: #fff;
   color: var(--main-blue);
-  width: 580px;
-  height: 200px;
+  width: 350px;
+  height: 580px;
   border-radius: 0.2rem;
 
   @media (max-width: 500px) {
     width: 100%;
-    flex-direction: column;
-    height: auto;
   }
 `;
 
 const ImageContainer = styled.div`
   display: flex;
-  width: 50%;
   height: 100%;
-
-  @media (max-width: 500px) {
-    width: 100%;
-  }
+  width: 100%;
 
   img {
     width: 100%;
@@ -42,14 +37,10 @@ const TitleContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 50%;
+  width: 100%;
   height: 100%;
   padding: 0.5rem;
   text-align: center;
-
-  @media (max-width: 500px) {
-    width: 100%;
-  }
 `;
 
 export default function RecipeBox({ recipe }: { recipe: IRecipe }) {

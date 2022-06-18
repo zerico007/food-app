@@ -15,6 +15,7 @@ const Container = styled.div`
   p {
     cursor: pointer;
     transition: all 0.3s ease-in-out;
+    margin: 0 0.5rem;
 
     :hover {
       transform: scale(1.2);

@@ -11,7 +11,7 @@ import {
   Recipes,
   AdvancedSearch,
 } from "..";
-import { useRecipes, useApi, useSearch, useTheme } from "../../context";
+import { useRecipes, useApi, useSearch } from "../../context";
 import { useClearSession } from "../../hooks";
 
 const fadeOut = keyframes`
@@ -32,14 +32,13 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Heading = styled.div<{ theme: "light" | "dark" }>`
+const Heading = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: ${(props) =>
-    props.theme === "light" ? "var(--main-blue)" : "var(--main-white)"};
+  color: var(--main-white);
 `;
 
 const SearchDiv = styled.div`
@@ -75,7 +74,6 @@ export default function Home() {
   const { responseInfo, getByQuery } = useApi();
   const { query, setCategory, category, nutrients } = useSearch();
   const { clearSession } = useClearSession();
-  const { theme } = useTheme();
 
   const { totalResults, number } = responseInfo;
 
@@ -124,7 +122,7 @@ export default function Home() {
   const determineHeading = useCallback(() => {
     if (number && totalResults) {
       return (
-        <Heading theme={theme}>
+        <Heading>
           <p>
             {`Showing ${
               number < totalResults ? number : totalResults
@@ -141,18 +139,18 @@ export default function Home() {
     } else {
       if (!totalResults && number) {
         return (
-          <Heading theme={theme}>
+          <Heading>
             <p>{`No results found for "${query}". Try again.`}</p>
           </Heading>
         );
       }
       return (
-        <Heading theme={theme}>
+        <Heading>
           <h2 style={{ fontWeight: 500 }}>Search for your favorite recipe!</h2>
         </Heading>
       );
     }
-  }, [number, query, totalResults, theme, clearSession]);
+  }, [number, query, totalResults, clearSession]);
 
   return (
     <Wrapper>
@@ -175,7 +173,6 @@ export default function Home() {
               {showAdvancedSearch ? <KeyboardArrowDown /> : <ChevronRight />}
             </div>
           }
-          height="2rem"
         />
         {showAdvancedSearch && (
           <AdvancedSearch

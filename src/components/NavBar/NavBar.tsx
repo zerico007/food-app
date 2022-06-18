@@ -13,7 +13,7 @@ const StyledNav = styled.nav`
   background-color: var(--main-blue);
   color: var(--main-white);
   width: 100%;
-  height: 3.5rem;
+  height: 4.5rem;
   font-size: 1.2rem;
   font-weight: bold;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.2);

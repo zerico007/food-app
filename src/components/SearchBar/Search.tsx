@@ -17,7 +17,7 @@ const StyledSearch = styled.div<{
 }>`
   display: flex;
   justify-content: space-between;
-  padding: 0.25rem 0.5rem;
+  padding: 0.25rem 0;
   align-items: center;
   background-color: #fff;
   color: var(--main-white);
@@ -69,6 +69,7 @@ export default function Search() {
       <Input
         width="90%"
         padding="0.5rem"
+        margin="0.5rem"
         type="text"
         placeholder="Search for a recipe ..."
         value={query}
@@ -79,9 +80,9 @@ export default function Search() {
       />
       <Button
         onClick={handleSearch}
-        theme="nav"
-        width="fit-content"
-        content={<SearchIcon style={{ color: "var(--main-text-color)" }} />}
+        theme="primary"
+        width="3rem"
+        content={<SearchIcon style={{ color: "var(--main-white)" }} />}
       />
     </StyledSearch>
   );

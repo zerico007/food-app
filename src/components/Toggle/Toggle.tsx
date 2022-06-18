@@ -19,7 +19,7 @@ const ToggleContainer = styled.div<{ toggleOn: boolean }>`
   height: 25px;
   border-radius: 12.5px;
   background-color: ${(props) =>
-    !props.toggleOn ? "var(--oxford-blue)" : "var(--main-pink)"};
+    !props.toggleOn ? "var(--oxford-blue)" : "var(--main-background)"};
   position: relative;
   padding: 10px;
   transition: background-color 0.3s ease-in-out;
@@ -30,7 +30,7 @@ const ToggleButton = styled.div<{ toggleOn: boolean }>`
   height: 25px;
   border-radius: 25px;
   background-color: ${(props) =>
-    !props.toggleOn ? "var(--main-pink)" : "var(--oxford-blue)"};
+    !props.toggleOn ? "var(--main-background)" : "var(--oxford-blue)"};
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
