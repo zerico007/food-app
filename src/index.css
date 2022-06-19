@@ -1,10 +1,12 @@
 :root {
   --main-blue: #2f2fa2;
   --main-blue-hovered: #242582;
+  --main-red: #ff4143;
+  --main-red-hovered: #e03e3e;
   --main-pink: #ff8496;
   --main-pink-hovered: #ef7272;
   --main-yellow: #ffc9a5;
-  --main-background: #99738e;
+  --main-background: #42022e;
   --main-white: #eaebed;
   --main-white-hovered: #efe2e2;
   --main-text-color: #36454f;

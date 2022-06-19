@@ -25,7 +25,8 @@ const Wrapper = styled.div`
   border-radius: 0.2rem;
 
   * {
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Dancing Script", cursive;
+    font-weight: 600;
   }
 `;
 
@@ -67,7 +68,7 @@ const NumberCircle = styled.div`
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background-color: var(--main-blue);
+  background-color: var(--main-red);
   color: var(--main-white);
   margin-right: 0.5rem;
 `;

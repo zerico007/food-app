@@ -15,22 +15,22 @@ const ToggleContainer = styled.div<{ toggleOn: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 50px;
-  height: 25px;
-  border-radius: 12.5px;
+  width: 53px;
+  height: 28px;
+  border-radius: 14px;
   background-color: ${(props) =>
-    !props.toggleOn ? "var(--oxford-blue)" : "var(--main-background)"};
+    !props.toggleOn ? "var(--main-red)" : "#fff"};
   position: relative;
   padding: 10px;
   transition: background-color 0.3s ease-in-out;
 `;
 
 const ToggleButton = styled.div<{ toggleOn: boolean }>`
-  width: 25px;
-  height: 25px;
-  border-radius: 25px;
+  width: 24px;
+  height: 24px;
+  border-radius: 24px;
   background-color: ${(props) =>
-    !props.toggleOn ? "var(--main-background)" : "var(--oxford-blue)"};
+    !props.toggleOn ? "var(--main-white)" : "var(--main-red)"};
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
@@ -45,12 +45,19 @@ export default function Toggle({
   toggleOn: boolean;
   onClick: () => void;
 }) {
+  const iconStyle = {
+    color: toggleOn ? "var(--main-red)" : "var(--main-white)",
+  };
   return (
     <ToggleWrapper>
       <ToggleContainer toggleOn={toggleOn}>
         <ToggleButton toggleOn={toggleOn} onClick={onClick} />
       </ToggleContainer>
-      {!toggleOn ? <DarkMode /> : <LightMode />}
+      {!toggleOn ? (
+        <DarkMode style={iconStyle} />
+      ) : (
+        <LightMode style={iconStyle} />
+      )}
     </ToggleWrapper>
   );
 }

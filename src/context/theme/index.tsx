@@ -12,7 +12,7 @@ const ThemeContext = createContext<IThemeContext>({
 });
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setTheme] = useSessionState<"light" | "dark">("theme", "light");
+  const [theme, setTheme] = useSessionState<"light" | "dark">("theme", "dark");
 
   const providerValue = useMemo(
     (): IThemeContext => ({

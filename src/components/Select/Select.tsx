@@ -1,6 +1,4 @@
-import { useMemo } from "react";
 import Select from "react-select";
-import { useTheme } from "../../context";
 
 export interface Option {
   value: string;
@@ -24,21 +22,18 @@ export default function SelectComponent({
   placeholder = "Select a category",
   margin = "0",
 }: SelectProps) {
-  const { theme } = useTheme();
-
-  const boxShadowColor = useMemo(
-    () => (theme === "light" ? "var(--main-blue)" : "var(--main-pink-hovered)"),
-    [theme]
-  );
-
   const selectStyles = {
     control: (base: any, { isFocused }: { isFocused: boolean }) => ({
       ...base,
-      width: width,
-      margin: margin,
+      width,
+      margin,
+      padding: "0.5rem",
       height: "3rem",
       border: "none",
-      boxShadow: isFocused ? `0 0 0 2px ${boxShadowColor}` : "none",
+      boxShadow: isFocused ? `0 0 0 2px var(--main-red)` : "none",
+      "@media (max-width: 600px)": {
+        width: "93vw",
+      },
     }),
     option: (base: any) => ({
       ...base,
@@ -68,7 +63,7 @@ export default function SelectComponent({
     }),
     placeholder: (base: any) => ({
       ...base,
-      fontSize: "0.75rem",
+      fontSize: "0.8rem",
     }),
   };
   return (

@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: center;
   padding: 0.5rem;
   background-color: #fff;
-  color: var(--main-blue);
+  color: var(--main-red);
   width: 350px;
   height: 580px;
   border-radius: 0.2rem;
@@ -43,6 +43,12 @@ const TitleContainer = styled.div`
   text-align: center;
 `;
 
+const ResponsiveBtn = styled(Button)`
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+`;
+
 export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
   const { image, title, id } = recipe;
   const { getRecipeDetails } = useApi();
@@ -67,11 +73,11 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
       </ImageContainer>
       <TitleContainer>
         <h5>{title}</h5>
-        <Button
+        <ResponsiveBtn
           onClick={handleGetRecipeDetails}
           content="view recipe"
           theme="primary"
-          height="1.8rem"
+          height="56px"
         />
       </TitleContainer>
     </Container>

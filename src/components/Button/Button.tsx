@@ -11,19 +11,18 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const buttonCSS = {
   primary: css`
-    background-color: var(--main-blue);
+    background-color: var(--main-red);
     color: var(--main-white);
-    border: 2px solid var(--main-blue-hovered);
+    border: none;
 
     :hover {
-      background-color: var(--main-blue-hovered);
-      border: 2px solid var(--main-blue);
+      background-color: var(--main-red-hovered);
     }
   `,
   secondary: css`
     background-color: #fff;
-    color: var(--main-blue);
-    border: 2px solid var(--main-blue);
+    color: var(--main-red);
+    border: 2px solid var(--main-red);
 
     :hover {
       background-color: var(--main-white-hovered);
@@ -31,7 +30,7 @@ const buttonCSS = {
   `,
   tertiary: css`
     background-color: #fff;
-    color: var(--main-blue);
+    color: var(--main-red);
     border: none;
 
     :hover {

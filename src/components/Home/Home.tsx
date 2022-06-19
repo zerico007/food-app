@@ -11,7 +11,7 @@ import {
   Recipes,
   AdvancedSearch,
 } from "..";
-import { useRecipes, useApi, useSearch } from "../../context";
+import { useRecipes, useApi, useSearch, useTheme } from "../../context";
 import { useClearSession } from "../../hooks";
 
 const fadeOut = keyframes`
@@ -32,13 +32,19 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 
-const Heading = styled.div`
+const Heading = styled.div<{ theme: "light" | "dark" }>`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  color: var(--main-white);
+  color: ${({ theme }) =>
+    theme === "dark" ? "var(--main-white)" : "var(--main-red)"};
+  width: 50%;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
 `;
 
 const SearchDiv = styled.div`
@@ -49,6 +55,12 @@ const SearchDiv = styled.div`
 
   .advanced-search.close {
     animation: ${fadeOut} 0.3s ease-in-out;
+  }
+`;
+
+const ResponsiveBtn = styled(Button)`
+  @media (max-width: 500px) {
+    width: 100%;
   }
 `;
 
@@ -74,6 +86,7 @@ export default function Home() {
   const { responseInfo, getByQuery } = useApi();
   const { query, setCategory, category, nutrients } = useSearch();
   const { clearSession } = useClearSession();
+  const { theme } = useTheme();
 
   const { totalResults, number } = responseInfo;
 
@@ -122,35 +135,38 @@ export default function Home() {
   const determineHeading = useCallback(() => {
     if (number && totalResults) {
       return (
-        <Heading>
+        <Heading theme={theme}>
           <p>
             {`Showing ${
               number < totalResults ? number : totalResults
             } results of ${totalResults}`}
           </p>
           <Paginate />
-          <Button
+          <ResponsiveBtn
             onClick={clearSession}
             content="clear search"
             theme="secondary"
+            height="56px"
           />
         </Heading>
       );
     } else {
       if (!totalResults && number) {
         return (
-          <Heading>
+          <Heading theme={theme}>
             <p>{`No results found for "${query}". Try again.`}</p>
           </Heading>
         );
       }
       return (
-        <Heading>
-          <h2 style={{ fontWeight: 500 }}>Search for your favorite recipe!</h2>
+        <Heading theme={theme}>
+          <h2 style={{ fontWeight: 500, fontFamily: "Dancing Script" }}>
+            Search for your favorite recipe!
+          </h2>
         </Heading>
       );
     }
-  }, [number, query, totalResults, clearSession]);
+  }, [number, query, totalResults, theme, clearSession]);
 
   return (
     <Wrapper>
@@ -162,7 +178,7 @@ export default function Home() {
           selected={category ? { value: category, label: category } : null}
           margin="1rem 0"
         />
-        <Button
+        <ResponsiveBtn
           onClick={toggleAdvancedSearch}
           theme="primary"
           content={
@@ -173,6 +189,7 @@ export default function Home() {
               {showAdvancedSearch ? <KeyboardArrowDown /> : <ChevronRight />}
             </div>
           }
+          height="56px"
         />
         {showAdvancedSearch && (
           <AdvancedSearch

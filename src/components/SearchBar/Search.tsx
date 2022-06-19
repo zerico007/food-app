@@ -5,11 +5,11 @@ import { Search as SearchIcon } from "@mui/icons-material";
 import { Button, Input } from "..";
 import { useApi, useRecipes, useSearch, useTheme } from "../../context";
 
-const determineBorderColor = (theme: "light" | "dark") => {
-  return theme === "light"
-    ? "3px solid var(--main-blue)"
-    : "3px solid var(--main-pink-hovered)";
-};
+// const determineBorderColor = (theme: "light" | "dark") => {
+//   return theme === "light"
+//     ? "3px solid var(--main-red)"
+//     : "3px solid var(--main-pink-hovered)";
+// };
 
 const StyledSearch = styled.div<{
   isFocused: boolean;
@@ -22,13 +22,13 @@ const StyledSearch = styled.div<{
   background-color: #fff;
   color: var(--main-white);
   width: 35rem;
-  height: 3.5rem;
+  height: 3rem;
   font-size: 1rem;
   font-weight: normal;
   border-radius: 0.3rem;
   box-sizing: border-box;
   border: ${(props) =>
-    props.isFocused ? determineBorderColor(props.theme) : "none"};
+    props.isFocused ? "3px solid var(--main-red)" : "none"};
 
   @media (max-width: 580px) {
     width: 100%;
