@@ -24,6 +24,14 @@ const fadeOut = keyframes`
   }
 `;
 
+const fadeInHero = keyframes`
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -62,6 +70,24 @@ const ResponsiveBtn = styled(Button)`
   width: 300px;
   @media (max-width: 500px) {
     width: 100%;
+  }
+`;
+
+const HeroImageContainer = styled.div`
+  height: 300px;
+  width: 35rem;
+  margin: 1rem auto;
+  animation: ${fadeInHero} 0.5s ease-in-out;
+
+  @media (max-width: 500px) {
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
   }
 `;
 
@@ -159,18 +185,23 @@ export default function Home() {
           </Heading>
         );
       }
-      return (
-        <Heading theme={theme}>
-          <h2 style={{ fontWeight: 500, fontFamily: "Dancing Script" }}>
-            Search for your favorite recipe!
-          </h2>
-        </Heading>
-      );
     }
   }, [number, query, totalResults, theme, clearSession]);
 
   return (
     <Wrapper>
+      <HeroImageContainer>
+        <img
+          src="https://live.staticflickr.com/65535/52145892038_5e3a5891ff_c.jpg"
+          loading="eager"
+          alt="foods pic"
+        />
+      </HeroImageContainer>
+      <Heading theme={theme}>
+        <h2 style={{ fontWeight: 500, fontFamily: "Dancing Script" }}>
+          Search for your favorite recipe!
+        </h2>
+      </Heading>
       <SearchDiv>
         <Search />
         <Select
