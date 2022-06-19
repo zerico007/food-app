@@ -67,6 +67,8 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
       params.append("query", query);
       params.append("offset", offSet || "0");
       params.append("type", type || "");
+      params.append("instructionsRequired", "true");
+      params.append("addRecipeInformation", "true");
       if (nutrients) {
         for (const [key, value] of Object.entries(nutrients)) {
           if (value) {

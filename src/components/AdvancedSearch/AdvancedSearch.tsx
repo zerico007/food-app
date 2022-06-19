@@ -111,7 +111,7 @@ export default function AdvancedSearch({
           <NumberPicker
             label={label}
             min={0}
-            max={1000}
+            max={3000}
             id={id}
             key={id}
             value={value}

@@ -77,7 +77,7 @@ const HeroImageContainer = styled.div`
   height: 300px;
   width: 35rem;
   margin: 1rem auto;
-  animation: ${fadeInHero} 0.5s ease-in-out;
+  animation: ${fadeInHero} 0.8s ease-in-out;
 
   @media (max-width: 500px) {
     width: 100%;

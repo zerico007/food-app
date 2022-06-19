@@ -60,7 +60,7 @@ const StyledButton = styled.button<Omit<ButtonProps, "content">>`
   padding: 0.25rem;
   box-sizing: border-box;
   font-size: 0.8rem;
-  font-weight: 500;
+  font-weight: 600;
   text-transform: uppercase;
   border-radius: 0.2rem;
   transition: all 0.3s ease-in-out;

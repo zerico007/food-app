@@ -32,6 +32,7 @@ const StyledInput = styled.input<InputProps>`
   border-radius: 0.2rem;
   background-color: ${(props) => props.background};
   color: var(--main-text-color);
+  font-size: 14px;
 
   :focus {
     border: ${(props) =>

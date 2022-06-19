@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { Button } from "..";
@@ -13,7 +13,7 @@ const Container = styled.div`
   background-color: #fff;
   color: var(--main-red);
   width: 350px;
-  height: 580px;
+  height: auto;
   border-radius: 0.2rem;
 
   @media (max-width: 500px) {
@@ -32,15 +32,19 @@ const ImageContainer = styled.div`
   }
 `;
 
-const TitleContainer = styled.div`
+const InfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  height: auto;
   padding: 0.5rem;
   text-align: center;
+
+  h3 {
+    font-family: "Dancing Script", cursive;
+  }
 `;
 
 const ResponsiveBtn = styled(Button)`
@@ -55,6 +59,16 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
   const { setRecipeDetails } = useRecipeDetails();
 
   const navigate = useNavigate();
+
+  const nutritionInfo = useMemo(() => {
+    if (recipe.nutrition) {
+      return recipe.nutrition?.nutrients.map(({ name, amount, unit }) => ({
+        name,
+        value: `${amount.toFixed(2)} ${unit}`,
+      }));
+    }
+    return [];
+  }, [recipe]);
 
   const handleGetRecipeDetails = useCallback(async () => {
     try {
@@ -71,15 +85,19 @@ export default function RecipeBox({ recipe }: { recipe: IRecipe }) {
       <ImageContainer>
         <img src={image} alt={title} loading="lazy" />
       </ImageContainer>
-      <TitleContainer>
-        <h5>{title}</h5>
+      <InfoContainer>
+        <h3>{title}</h3>
+        {!!nutritionInfo.length &&
+          nutritionInfo.map(({ name, value }) => (
+            <h3 key={name}>{`${name}: ${value}`}</h3>
+          ))}
         <ResponsiveBtn
           onClick={handleGetRecipeDetails}
           content="view recipe"
           theme="primary"
           height="56px"
         />
-      </TitleContainer>
+      </InfoContainer>
     </Container>
   );
 }

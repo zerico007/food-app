@@ -38,14 +38,17 @@ export default function SelectComponent({
     option: (base: any) => ({
       ...base,
       width: "90%",
+      height: "3rem",
+      display: "flex",
+      alignItems: "center",
       borderRadius: "4px",
       backgroundColor: "var(--main-white)",
       color: "var(--main-text-color)",
       padding: "0.5rem",
       cursor: "pointer",
-      fontSize: "0.75rem",
+      fontSize: "14px",
       ":hover": {
-        backgroundColor: "var(--main-blue)",
+        backgroundColor: "var(--main-red)",
         color: "var(--main-white)",
       },
     }),
@@ -53,6 +56,24 @@ export default function SelectComponent({
       ...base,
       padding: "0.5rem",
       backgroundColor: "var(--main-white)",
+    }),
+
+    menuList: (base: any) => ({
+      ...base,
+      "::-webkit-scrollbar": {
+        width: "10px",
+      },
+
+      "::-webkit-scrollbar-track": {
+        background: "transparent",
+        margin: "10px",
+        borderRadius: "3px",
+      },
+
+      "::-webkit-scrollbar-thumb": {
+        background: "#979595",
+        borderRadius: "8px",
+      },
     }),
     dropdownIndicator: (base: any) => ({
       ...base,
@@ -63,7 +84,7 @@ export default function SelectComponent({
     }),
     placeholder: (base: any) => ({
       ...base,
-      fontSize: "0.8rem",
+      fontSize: "14px",
     }),
   };
   return (

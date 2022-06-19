@@ -25,7 +25,7 @@ const Container = styled.div`
 
 export default function Paginate() {
   const { responseInfo, getByQuery } = useApi();
-  const { query } = useSearch();
+  const { query, category, nutrients } = useSearch();
   const { setRecipes } = useRecipes();
   const { totalResults, number, offset } = responseInfo;
 
@@ -34,30 +34,70 @@ export default function Paginate() {
 
   const handleNext = useCallback(async () => {
     if (currentPage === totalPages) return;
-    const newRecipes = await getByQuery(query, (offset + number).toString());
+    const newRecipes = await getByQuery(
+      query,
+      (offset + number).toString(),
+      category,
+      nutrients
+    );
     setRecipes(newRecipes);
-  }, [currentPage, totalPages, getByQuery, query, offset, number, setRecipes]);
+  }, [
+    currentPage,
+    totalPages,
+    getByQuery,
+    query,
+    offset,
+    number,
+    category,
+    nutrients,
+    setRecipes,
+  ]);
 
   const handlePrev = useCallback(async () => {
     if (currentPage === 1) return;
-    const newRecipes = await getByQuery(query, (offset - number).toString());
+    const newRecipes = await getByQuery(
+      query,
+      (offset - number).toString(),
+      category,
+      nutrients
+    );
     setRecipes(newRecipes);
-  }, [currentPage, getByQuery, query, offset, number, setRecipes]);
+  }, [
+    currentPage,
+    getByQuery,
+    query,
+    offset,
+    number,
+    category,
+    nutrients,
+    setRecipes,
+  ]);
 
   const goToLastPage = useCallback(async () => {
     if (currentPage === totalPages) return;
     const newRecipes = await getByQuery(
       query,
-      (totalPages * number - number).toString()
+      (totalPages * number - number).toString(),
+      category,
+      nutrients
     );
     setRecipes(newRecipes);
-  }, [currentPage, totalPages, getByQuery, query, number, setRecipes]);
+  }, [
+    currentPage,
+    totalPages,
+    getByQuery,
+    query,
+    number,
+    category,
+    nutrients,
+    setRecipes,
+  ]);
 
   const goToFirstPage = useCallback(async () => {
     if (currentPage === 1) return;
-    const newRecipes = await getByQuery(query, "0");
+    const newRecipes = await getByQuery(query, "0", category, nutrients);
     setRecipes(newRecipes);
-  }, [currentPage, getByQuery, query, setRecipes]);
+  }, [category, currentPage, getByQuery, nutrients, query, setRecipes]);
 
   return (
     <Container>
