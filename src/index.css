@@ -21,7 +21,7 @@ body {
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--oxford-blue-lite);
+  background-color: var(--main-background);
   overflow-x: hidden;
 }
 

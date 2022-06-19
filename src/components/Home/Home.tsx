@@ -59,6 +59,7 @@ const SearchDiv = styled.div`
 `;
 
 const ResponsiveBtn = styled(Button)`
+  width: 300px;
   @media (max-width: 500px) {
     width: 100%;
   }
@@ -177,6 +178,7 @@ export default function Home() {
           onChange={handleChange}
           selected={category ? { value: category, label: category } : null}
           margin="1rem 0"
+          width="35rem"
         />
         <ResponsiveBtn
           onClick={toggleAdvancedSearch}
