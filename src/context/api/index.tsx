@@ -16,7 +16,9 @@ interface IApiContext {
     query: string,
     offSet?: string,
     type?: string,
-    nutrients?: INutrientsQuery
+    nutrients?: INutrientsQuery,
+    includeIngredients?: string[],
+    excludeIngredients?: string[]
   ) => Promise<IRecipe[]>;
   getRecipeDetails: (recipeId: string) => Promise<IRecipeDetails>;
 }
@@ -60,7 +62,9 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
       query: string,
       offSet?: string,
       type?: string,
-      nutrients?: INutrientsQuery
+      nutrients?: INutrientsQuery,
+      includeIngredients?: string[],
+      excludeIngredients?: string[]
     ) => {
       setIsLoading(true);
       const params = new URLSearchParams();
@@ -75,6 +79,12 @@ export const ApiProvider = ({ children }: { children: React.ReactNode }) => {
             params.append(key, value.toString());
           }
         }
+      }
+      if (includeIngredients) {
+        params.append("includeIngredients", includeIngredients.join(","));
+      }
+      if (excludeIngredients) {
+        params.append("excludeIngredients", excludeIngredients.join(","));
       }
       params.append("apiKey", API_KEY);
       try {

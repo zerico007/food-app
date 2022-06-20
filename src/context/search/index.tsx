@@ -5,9 +5,13 @@ interface ISearchContext {
   query: string;
   category: string;
   nutrients: INutrientsQuery;
+  includeIngredients: string[];
+  excludeIngredients: string[];
   setQuery: (query: string) => void;
   setCategory: (category: string) => void;
   setNutrients: (nutrients: INutrientsQuery) => void;
+  setIncludeIngredients: (ingredients: string[]) => void;
+  setExcludeIngredients: (ingredients: string[]) => void;
 }
 
 const initialNutrients: INutrientsQuery = {
@@ -21,9 +25,13 @@ const SearchContext = createContext<ISearchContext>({
   query: "",
   category: "",
   nutrients: initialNutrients,
+  includeIngredients: [],
+  excludeIngredients: [],
   setQuery: () => {},
   setCategory: () => {},
   setNutrients: () => {},
+  setIncludeIngredients: () => {},
+  setExcludeIngredients: () => {},
 });
 
 export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
@@ -32,6 +40,14 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
   const [nutrients, setNutrients] = useSessionState<INutrientsQuery>(
     "nutrients",
     initialNutrients
+  );
+  const [includeIngredients, setIncludeIngredients] = useSessionState<string[]>(
+    "includeIngredients",
+    []
+  );
+  const [excludeIngredients, setExcludeIngredients] = useSessionState<string[]>(
+    "excludeIngredients",
+    []
   );
 
   const providerValue = useMemo(
@@ -42,8 +58,23 @@ export const SearchProvider = ({ children }: { children: React.ReactNode }) => {
       setCategory,
       setNutrients,
       nutrients,
+      setIncludeIngredients,
+      includeIngredients,
+      setExcludeIngredients,
+      excludeIngredients,
     }),
-    [query, setQuery, category, setCategory, setNutrients, nutrients]
+    [
+      query,
+      setQuery,
+      category,
+      setCategory,
+      setNutrients,
+      nutrients,
+      setIncludeIngredients,
+      includeIngredients,
+      setExcludeIngredients,
+      excludeIngredients,
+    ]
   );
 
   return (

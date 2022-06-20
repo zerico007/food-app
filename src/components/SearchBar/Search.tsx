@@ -5,12 +5,6 @@ import { Search as SearchIcon } from "@mui/icons-material";
 import { Button, Input } from "..";
 import { useApi, useRecipes, useSearch, useTheme } from "../../context";
 
-// const determineBorderColor = (theme: "light" | "dark") => {
-//   return theme === "light"
-//     ? "3px solid var(--main-red)"
-//     : "3px solid var(--main-pink-hovered)";
-// };
-
 const StyledSearch = styled.div<{
   isFocused: boolean;
   theme: "light" | "dark";

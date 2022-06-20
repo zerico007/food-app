@@ -1,4 +1,4 @@
-import { InputHTMLAttributes } from "react";
+import { InputHTMLAttributes, ReactNode } from "react";
 import styled from "styled-components";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -10,9 +10,11 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   background?: string;
   showLabel?: boolean;
   label?: string;
+  icon?: ReactNode;
 }
 
 const InputContainer = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   width: ${(props: InputProps) => props.width};
@@ -36,8 +38,14 @@ const StyledInput = styled.input<InputProps>`
 
   :focus {
     border: ${(props) =>
-      props.border === "none" ? "none" : "2px solid var(--oxford-blue-lite)"};
+      props.border === "none" ? "none" : "2px solid var(--main-red)"};
   }
+`;
+
+const IconContainer = styled.div`
+  position: absolute;
+  top: 32%;
+  right: 5px;
 `;
 
 const StyledLabel = styled.label`
@@ -59,6 +67,7 @@ export default function Input({
   background = "transparent",
   showLabel = false,
   label = "",
+  icon,
   ...rest
 }: InputProps) {
   return (
@@ -78,6 +87,7 @@ export default function Input({
         showLabel={showLabel}
         {...rest}
       />
+      {icon && <IconContainer>{icon}</IconContainer>}
     </InputContainer>
   );
 }

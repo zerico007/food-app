@@ -95,7 +95,14 @@ const carouselImages = [
 export default function Home() {
   const { recipes, setRecipes } = useRecipes();
   const { responseInfo, getByQuery } = useApi();
-  const { query, setCategory, category, nutrients } = useSearch();
+  const {
+    query,
+    setCategory,
+    category,
+    nutrients,
+    includeIngredients,
+    excludeIngredients,
+  } = useSearch();
   const { clearSession } = useClearSession();
   const { theme } = useTheme();
 
@@ -124,11 +131,21 @@ export default function Home() {
         query,
         "0",
         category,
-        nutrients
+        nutrients,
+        includeIngredients,
+        excludeIngredients
       );
       setRecipes(newFetchedRecipes);
     }
-  }, [query, category, getByQuery, nutrients, setRecipes]);
+  }, [
+    query,
+    category,
+    getByQuery,
+    nutrients,
+    setRecipes,
+    includeIngredients,
+    excludeIngredients,
+  ]);
 
   const handleChange = useCallback(
     async (selected: Option | null) => {
