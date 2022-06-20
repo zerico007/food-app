@@ -10,6 +10,7 @@ import {
   Option,
   Recipes,
   AdvancedSearch,
+  Carousel,
 } from "..";
 import { useRecipes, useApi, useSearch, useTheme } from "../../context";
 import { useClearSession } from "../../hooks";
@@ -21,14 +22,6 @@ const fadeOut = keyframes`
   } to {
     opacity: 0;
     transform: translateY(-100px);
-  }
-`;
-
-const fadeInHero = keyframes`
-  from {
-    opacity: 0;
-  } to {
-    opacity: 1;
   }
 `;
 
@@ -73,24 +66,6 @@ const ResponsiveBtn = styled(Button)`
   }
 `;
 
-const HeroImageContainer = styled.div`
-  height: 300px;
-  width: 35rem;
-  margin: 1rem auto;
-  animation: ${fadeInHero} 0.8s ease-in-out;
-
-  @media (max-width: 500px) {
-    width: 100%;
-  }
-
-  img {
-    width: 100%;
-    height: 100%;
-    border-radius: 10px;
-    object-fit: cover;
-  }
-`;
-
 const selectOptions = [
   "main course",
   "salad",
@@ -107,6 +82,15 @@ const selectOptions = [
   "fingerfood",
   "snack",
 ].map((option) => ({ value: option, label: option }));
+
+const carouselImages = [
+  "https://live.staticflickr.com/65535/52145892038_5e3a5891ff_c.jpg",
+  "https://live.staticflickr.com/65535/52157975692_452ed6cd93_k.jpg",
+  "https://live.staticflickr.com/65535/52157975772_890fd2f799_k.jpg",
+  "https://live.staticflickr.com/65535/52158997526_bc87128b57_k.jpg",
+  "https://live.staticflickr.com/65535/52159000063_1d6a885907_k.jpg",
+  "https://live.staticflickr.com/65535/52159235719_a101b6e6a5_k.jpg",
+];
 
 export default function Home() {
   const { recipes, setRecipes } = useRecipes();
@@ -190,13 +174,7 @@ export default function Home() {
 
   return (
     <Wrapper>
-      <HeroImageContainer>
-        <img
-          src="https://live.staticflickr.com/65535/52145892038_5e3a5891ff_c.jpg"
-          loading="eager"
-          alt="foods pic"
-        />
-      </HeroImageContainer>
+      <Carousel images={carouselImages} />
       <Heading theme={theme}>
         <h2 style={{ fontWeight: 500, fontFamily: "Dancing Script" }}>
           Search for your favorite recipe!
