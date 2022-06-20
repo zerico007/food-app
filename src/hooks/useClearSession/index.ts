@@ -5,7 +5,13 @@ import { useRecipes, useApi, useSearch, useRecipeDetails } from "../../context";
 export function useClearSession() {
   const { setRecipes } = useRecipes();
   const { setResponseInfo } = useApi();
-  const { setQuery, setCategory, setNutrients } = useSearch();
+  const {
+    setQuery,
+    setCategory,
+    setNutrients,
+    setIncludeIngredients,
+    setExcludeIngredients,
+  } = useSearch();
   const { setRecipeDetails } = useRecipeDetails();
 
   const clearSession = useCallback(() => {
@@ -24,6 +30,8 @@ export function useClearSession() {
       maxProtein: 0,
       maxFat: 0,
     });
+    setIncludeIngredients([]);
+    setExcludeIngredients([]);
   }, [
     setQuery,
     setResponseInfo,
@@ -31,6 +39,8 @@ export function useClearSession() {
     setRecipeDetails,
     setCategory,
     setNutrients,
+    setIncludeIngredients,
+    setExcludeIngredients,
   ]);
 
   return { clearSession };

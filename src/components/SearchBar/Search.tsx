@@ -32,7 +32,14 @@ const StyledSearch = styled.div<{
 export default function Search() {
   const { getByQuery } = useApi();
   const { setRecipes } = useRecipes();
-  const { setQuery, category, query } = useSearch();
+  const {
+    setQuery,
+    category,
+    query,
+    nutrients,
+    includeIngredients,
+    excludeIngredients,
+  } = useSearch();
   const { theme } = useTheme();
 
   const [isFocused, setIsFocused] = useState(false);
@@ -45,9 +52,24 @@ export default function Search() {
   );
 
   const handleSearch = useCallback(async () => {
-    const fetchedRecipes = await getByQuery(query, "0", category);
+    const fetchedRecipes = await getByQuery(
+      query,
+      "0",
+      category,
+      nutrients,
+      includeIngredients,
+      excludeIngredients
+    );
     setRecipes(fetchedRecipes);
-  }, [getByQuery, query, setRecipes, category]);
+  }, [
+    getByQuery,
+    query,
+    setRecipes,
+    category,
+    nutrients,
+    includeIngredients,
+    excludeIngredients,
+  ]);
 
   const handleSearchByEnter = useCallback(
     (event: KeyboardEvent<HTMLInputElement>) => {
