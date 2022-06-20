@@ -77,13 +77,7 @@ const SummaryBox = styled.div`
   width: 80%;
   padding: 1rem;
 
-  p {
-    font-family: "Roboto", sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
-    font-size: 14px;
-  }
-
+  p,
   p > * {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
@@ -103,6 +97,7 @@ const InstructionsBox = styled.div`
     line-height: 1.5;
     font-size: 14px;
   }
+  padding: 1rem;
 `;
 
 export default function RecipeDetails() {
@@ -167,7 +162,7 @@ export default function RecipeDetails() {
               ))}
             </ul>
           </div>
-          <div>
+          <div style={{ padding: "1rem" }}>
             <h2>Instructions</h2>
             {instructions && (
               <InstructionsBox>{parse(instructions)}</InstructionsBox>
