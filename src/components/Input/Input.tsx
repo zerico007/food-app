@@ -51,7 +51,7 @@ const IconContainer = styled.div`
 const StyledLabel = styled.label`
   display: flex;
   color: var(--main-text-color);
-  font-size: 0.8rem;
+  font-size: 14px;
 
   :before {
     content: "${(props: InputProps) => props.label}";

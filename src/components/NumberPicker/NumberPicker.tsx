@@ -22,6 +22,10 @@ const Container = styled.div<{ margin: string }>`
   height: 60px;
   justify-content: space-between;
   margin: ${(props) => props.margin};
+
+  div {
+    font-size: 14px;
+  }
 `;
 
 const Wrapper = styled.div`

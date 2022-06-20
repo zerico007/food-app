@@ -78,7 +78,6 @@ const IngredientBox = styled.div<{ plus: boolean }>`
   width: 100px;
   height: 24px;
   align-items: center;
-  font-size: 14px;
   justify-content: space-between;
   padding: 0.5rem;
   border-radius: 1rem;
@@ -274,7 +273,7 @@ export default function AdvancedSearch({
               remove,
               onKeyPress,
             }) => (
-              <Container key={label}>
+              <IngredientsContainer key={label}>
                 <Input
                   type="text"
                   width="80%"
@@ -311,7 +310,7 @@ export default function AdvancedSearch({
                     </IngredientBox>
                   ))}
                 </IngredientsList>
-              </Container>
+              </IngredientsContainer>
             )
           )}
         </IngredientsContainer>
