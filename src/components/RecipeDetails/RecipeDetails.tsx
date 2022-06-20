@@ -75,13 +75,35 @@ const NumberCircle = styled.div`
 
 const SummaryBox = styled.div`
   width: 80%;
+  padding: 1rem;
+
+  p {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+
+  p > * {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 14px;
+  }
 
   @media (max-width: 1000px) {
     width: 100%;
   }
 `;
 
-const InstructionsBox = styled.div``;
+const InstructionsBox = styled.div`
+  * {
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    font-size: 14px;
+  }
+`;
 
 export default function RecipeDetails() {
   const { recipeDetails } = useRecipeDetails();
@@ -123,11 +145,11 @@ export default function RecipeDetails() {
         </ImageContainer>
         <InfoContainer>
           <SummaryBox>
-            <h3>Summary</h3>
+            <h2>Summary</h2>
             <p>{parse(summary)}</p>
           </SummaryBox>
-          <div>
-            <h3>Ingredients</h3>
+          <div style={{ padding: "1rem" }}>
+            <h2>Ingredients</h2>
             <ul style={{ listStyle: "none" }}>
               {ingredients.map((ingredient: string, index: number) => (
                 <li key={index}>
@@ -146,7 +168,7 @@ export default function RecipeDetails() {
             </ul>
           </div>
           <div>
-            <h3>Instructions</h3>
+            <h2>Instructions</h2>
             {instructions && (
               <InstructionsBox>{parse(instructions)}</InstructionsBox>
             )}
