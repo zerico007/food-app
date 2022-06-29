@@ -7,7 +7,7 @@ import { useCallback } from "react";
 
 const backgroundColor = (theme: string) => {
   if (theme === "light") {
-    return "var(--main-white)";
+    return "var(--shell-background)";
   }
   return "var(--main-background)";
 };

@@ -68,7 +68,7 @@ const NumberCircle = styled.div`
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 50%;
-  background-color: var(--main-red);
+  background-color: var(--button-red);
   color: var(--main-white);
   margin-right: 0.5rem;
 `;

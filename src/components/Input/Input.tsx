@@ -38,7 +38,7 @@ const StyledInput = styled.input<InputProps>`
 
   :focus {
     border: ${(props) =>
-      props.border === "none" ? "none" : "2px solid var(--main-red)"};
+      props.border === "none" ? "none" : "2px solid var(--button-red)"};
   }
 `;
 

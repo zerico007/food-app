@@ -1,14 +1,13 @@
 :root {
-  --main-blue: #2f2fa2;
-  --main-blue-hovered: #242582;
-  --main-red: #ff4143;
-  --main-red-hovered: #e03e3e;
-  --main-green: #00a300;
+  --button-red: #e9455d;
+  --button-red-hovered: #d42e47;
+  --shell-background: #eedbcb;
+  --main-green: #339476;
   --main-green-hovered: #006600;
   --main-pink: #ff8496;
   --main-pink-hovered: #ef7272;
   --main-yellow: #ffc9a5;
-  --main-background: #42022e;
+  --main-background: #243b67;
   --main-white: #eaebed;
   --main-white-hovered: #efe2e2;
   --main-text-color: #36454f;

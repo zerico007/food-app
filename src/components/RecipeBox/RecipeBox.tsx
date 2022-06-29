@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: center;
   padding: 0.5rem;
   background-color: #fff;
-  color: var(--main-red);
+  color: var(--button-red);
   width: 350px;
   height: auto;
   border-radius: 0.2rem;

@@ -22,7 +22,7 @@ const StyledSearch = styled.div<{
   border-radius: 0.3rem;
   box-sizing: border-box;
   border: ${(props) =>
-    props.isFocused ? "3px solid var(--main-red)" : "none"};
+    props.isFocused ? "3px solid var(--button-red)" : "none"};
 
   @media (max-width: 580px) {
     width: 100%;

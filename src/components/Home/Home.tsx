@@ -40,7 +40,7 @@ const Heading = styled.div<{ theme: "light" | "dark" }>`
   align-items: center;
   text-align: center;
   color: ${({ theme }) =>
-    theme === "dark" ? "var(--main-white)" : "var(--main-red)"};
+    theme === "dark" ? "var(--main-white)" : "var(--button-red)"};
   width: 50%;
 
   @media (max-width: 500px) {

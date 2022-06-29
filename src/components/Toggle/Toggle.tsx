@@ -19,7 +19,7 @@ const ToggleContainer = styled.div<{ toggleOn: boolean }>`
   height: 28px;
   border-radius: 14px;
   background-color: ${(props) =>
-    !props.toggleOn ? "var(--main-red)" : "#fff"};
+    !props.toggleOn ? "var(--button-red)" : "#fff"};
   position: relative;
   padding: 10px;
   transition: background-color 0.3s ease-in-out;
@@ -30,11 +30,12 @@ const ToggleButton = styled.div<{ toggleOn: boolean }>`
   height: 24px;
   border-radius: 24px;
   background-color: ${(props) =>
-    !props.toggleOn ? "var(--main-white)" : "var(--main-red)"};
+    !props.toggleOn ? "var(--main-white)" : "var(--button-red)"};
   transition: all 0.3s ease-in-out;
   position: relative;
   cursor: pointer;
   position: absolute;
+  top: 1px;
   left: ${(props) => (props.toggleOn ? "0" : "25px")};
 `;
 
@@ -46,7 +47,7 @@ export default function Toggle({
   onClick: () => void;
 }) {
   const iconStyle = {
-    color: toggleOn ? "var(--main-red)" : "var(--main-white)",
+    color: toggleOn ? "var(--button-red)" : "var(--main-white)",
   };
   return (
     <ToggleWrapper>

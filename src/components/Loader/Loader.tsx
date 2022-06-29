@@ -8,10 +8,10 @@ const LoaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: var(--main-red);
+  color: var(--button-red);
 
   p {
-    color: var(--main-red);
+    color: var(--button-red);
     font-size: 1.5rem;
   }
 `;
@@ -19,7 +19,7 @@ const LoaderContainer = styled.div`
 export default function Loader() {
   return (
     <LoaderContainer>
-      <MutatingDots height="100" width="100" color="var(--main-red)" />
+      <MutatingDots height="100" width="100" color="var(--button-red)" />
       <p>Loading...</p>
     </LoaderContainer>
   );

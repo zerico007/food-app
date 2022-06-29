@@ -76,13 +76,13 @@ const ButtonsDiv = styled.div`
 const IngredientBox = styled.div<{ plus: boolean }>`
   display: flex;
   width: 100px;
-  height: 24px;
+  height: 28px;
   align-items: center;
   justify-content: space-between;
   padding: 0.5rem;
   border-radius: 1rem;
   background-color: ${({ plus }) =>
-    plus ? "var(--main-green)" : "var(--main-red)"};
+    plus ? "var(--main-green)" : "var(--button-red)"};
   color: var(--main-white);
   margin: 0.5rem;
 `;

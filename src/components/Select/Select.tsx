@@ -30,7 +30,7 @@ export default function SelectComponent({
       padding: "0.5rem",
       height: "3rem",
       border: "none",
-      boxShadow: isFocused ? `0 0 0 2px var(--main-red)` : "none",
+      boxShadow: isFocused ? `0 0 0 2px var(--button-red)` : "none",
       "@media (max-width: 600px)": {
         width: "93vw",
       },
@@ -48,7 +48,7 @@ export default function SelectComponent({
       cursor: "pointer",
       fontSize: "14px",
       ":hover": {
-        backgroundColor: "var(--main-red)",
+        backgroundColor: "var(--button-red)",
         color: "var(--main-white)",
       },
     }),

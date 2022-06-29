@@ -11,7 +11,9 @@ const AppContainer = styled.div<{ theme: "light" | "dark" }>`
   align-items: center;
   min-height: 100vh;
   background-color: ${(props) =>
-    props.theme === "light" ? "var(--main-white)" : "var(--main-background)"};
+    props.theme === "light"
+      ? "var(--shell-background)"
+      : "var(--main-background)"};
   width: 100vw;
   padding: 1rem;
 `;

@@ -30,7 +30,7 @@ const CarouselContainer = styled.div`
   }
 
   svg {
-    color: var(--main-red);
+    color: var(--button-red);
     cursor: pointer;
     font-size: 2rem;
     transition: all 0.3s ease-in-out;
