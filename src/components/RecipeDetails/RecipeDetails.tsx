@@ -123,7 +123,7 @@ export default function RecipeDetails() {
             }}
           >
             <ArrowBackIosNew />
-            <span style={{ fontSize: "18px" }}>Back to search</span>
+            <span>Back to search</span>
           </div>
         }
         onClick={() => {

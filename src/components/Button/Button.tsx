@@ -41,6 +41,10 @@ const buttonCSS = {
     background-color: transparent;
     color: var(--main-white);
     border: none;
+
+    :hover {
+      border: 2px solid var(--button-red);
+    }
   `,
 };
 

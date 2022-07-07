@@ -1,9 +1,11 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+import { DarkMode, LightMode } from "@mui/icons-material";
+
 import { useClearSession } from "../../hooks";
 import { useTheme } from "../../context";
-import { Toggle } from "..";
-import { useCallback } from "react";
+import { Button } from "..";
 
 const backgroundColor = (theme: string) => {
   if (theme === "light") {
@@ -56,7 +58,21 @@ export default function NavBar() {
       >
         Foodie!
       </h2>
-      <Toggle toggleOn={theme === "light"} onClick={handleThemeToggle} />
+      {/* <Toggle toggleOn={theme === "light"} onClick={handleThemeToggle} /> */}
+      <Button
+        theme="nav"
+        width="40px"
+        height="30px"
+        title="Toggle Theme"
+        onClick={handleThemeToggle}
+        content={
+          theme !== "light" ? (
+            <DarkMode />
+          ) : (
+            <LightMode style={{ color: "var(--button-red)" }} />
+          )
+        }
+      />
     </StyledNav>
   );
 }
