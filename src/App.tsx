@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { NavBar, Home, Loader, RecipeDetails } from "./components";
 import { useApi, useTheme } from "./context";
+import { useEffect } from "react";
 
 const AppContainer = styled.div<{ theme: "light" | "dark" }>`
   display: flex;
@@ -29,7 +30,15 @@ const InnerContainer = styled.div`
 
 function App() {
   const { isLoading } = useApi();
-  const { theme } = useTheme();
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      setTheme("dark");
+    } else {
+      setTheme("light");
+    }
+  });
   return (
     <AppContainer className="App" theme={theme}>
       <NavBar />
