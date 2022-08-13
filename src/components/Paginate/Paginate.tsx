@@ -25,7 +25,8 @@ const Container = styled.div`
 
 export default function Paginate() {
   const { responseInfo, getByQuery } = useApi();
-  const { query, category, nutrients } = useSearch();
+  const { query, category, nutrients, includeIngredients, excludeIngredients } =
+    useSearch();
   const { setRecipes } = useRecipes();
   const { totalResults, number, offset } = responseInfo;
 
@@ -38,7 +39,9 @@ export default function Paginate() {
       query,
       (offset + number).toString(),
       category,
-      nutrients
+      nutrients,
+      includeIngredients,
+      excludeIngredients
     );
     setRecipes(newRecipes);
   }, [
@@ -51,6 +54,8 @@ export default function Paginate() {
     category,
     nutrients,
     setRecipes,
+    includeIngredients,
+    excludeIngredients,
   ]);
 
   const handlePrev = useCallback(async () => {
@@ -59,7 +64,9 @@ export default function Paginate() {
       query,
       (offset - number).toString(),
       category,
-      nutrients
+      nutrients,
+      includeIngredients,
+      excludeIngredients
     );
     setRecipes(newRecipes);
   }, [
@@ -71,6 +78,8 @@ export default function Paginate() {
     category,
     nutrients,
     setRecipes,
+    includeIngredients,
+    excludeIngredients,
   ]);
 
   const goToLastPage = useCallback(async () => {
@@ -79,7 +88,9 @@ export default function Paginate() {
       query,
       (totalPages * number - number).toString(),
       category,
-      nutrients
+      nutrients,
+      includeIngredients,
+      excludeIngredients
     );
     setRecipes(newRecipes);
   }, [
@@ -91,13 +102,31 @@ export default function Paginate() {
     category,
     nutrients,
     setRecipes,
+    includeIngredients,
+    excludeIngredients,
   ]);
 
   const goToFirstPage = useCallback(async () => {
     if (currentPage === 1) return;
-    const newRecipes = await getByQuery(query, "0", category, nutrients);
+    const newRecipes = await getByQuery(
+      query,
+      "0",
+      category,
+      nutrients,
+      includeIngredients,
+      excludeIngredients
+    );
     setRecipes(newRecipes);
-  }, [category, currentPage, getByQuery, nutrients, query, setRecipes]);
+  }, [
+    category,
+    currentPage,
+    getByQuery,
+    nutrients,
+    query,
+    setRecipes,
+    includeIngredients,
+    excludeIngredients,
+  ]);
 
   return (
     <Container>
