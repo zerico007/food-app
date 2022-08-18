@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 
 import { NavBar, Home, Loader, RecipeDetails } from "./components";
 import { useApi, useTheme } from "./context";
-import { useEffect } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 
 const AppContainer = styled.div<{ theme: "light" | "dark" }>`
   display: flex;
@@ -32,13 +32,28 @@ function App() {
   const { isLoading } = useApi();
   const { theme, setTheme } = useTheme();
 
+  const prefersDarkMode = useMemo(
+    () => window.matchMedia("(prefers-color-scheme: dark)"),
+    []
+  );
+
+  const handleThemeChange = useCallback(
+    (event: MediaQueryListEvent) => {
+      if (event.matches) {
+        setTheme("dark");
+      } else {
+        setTheme("light");
+      }
+    },
+    [setTheme]
+  );
+
   useEffect(() => {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      setTheme("dark");
-    } else {
-      setTheme("light");
-    }
-  });
+    prefersDarkMode.addEventListener("change", handleThemeChange);
+    return () => {
+      prefersDarkMode.removeEventListener("change", handleThemeChange);
+    };
+  }, [handleThemeChange, prefersDarkMode]);
   return (
     <AppContainer className="App" theme={theme}>
       <NavBar />
